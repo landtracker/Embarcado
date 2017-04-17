@@ -1,7 +1,27 @@
 #include "Ultrassom.h"
 
 
-float Ultrassom::calculaDistancia(){//--Retorna a distância medida
+
+void Ultrassom::iniciaUltrassom(const int triggerIn, const int echoIn)
+{
+    
+    setTriggerPin(triggerIn);
+    setEchoPin(echoIn);
+    
+    pinMode(_triggerPin, OUTPUT);
+    pinMode(_echoPin, INPUT);
+    digitalWrite(_triggerPin, LOW);
+    delay(500);
+    
+    
+}
+
+
+float Ultrassom::calculaDistancia(int timeout){//--Retorna a distância medida
+    
+    float distancia;
+    
+    delay(10);
     //--Emite o pulso!
     digitalWrite(_triggerPin, LOW);
     delayMicroseconds(30);
@@ -10,19 +30,19 @@ float Ultrassom::calculaDistancia(){//--Retorna a distância medida
     delayMicroseconds(20);
     digitalWrite(_triggerPin, LOW);
     
+     now=micros();
+     
+     
+    while (digitalRead(_echoPin) == LOW && micros()-now<timeout);
+    {
+    recordPulseLength();
+
+    travelTimeUsec = endTimeUsec - startTimeUsec;
+    distancia = 100*((travelTimeUsec/1000000.0)*340.29)/2;
     
-    //Esperando pelo Inicio do ECHO
-    while(digitalRead(_echoPin) == LOW);
-    
-    //Esperando pelo fim do ECHO
-    long startTime = micros();
-    while(digitalRead(_echoPin) == HIGH);
-    long travelTime = micros() - startTime;
-    
-    //Distancia em cm
-    float distance = travelTime / 58;
-    
-    return distance;
+    }
+    //Distancia em cm   
+    return distancia;
 }
 
 void Ultrassom::setTriggerPin(const int triggerIn){
@@ -31,4 +51,14 @@ void Ultrassom::setTriggerPin(const int triggerIn){
 
 void Ultrassom::setEchoPin(const int echoIn){
     _echoPin=echoIn;
+}
+
+
+
+
+void Ultrassom::recordPulseLength()
+{
+    startTimeUsec = micros();
+    while ( digitalRead(_echoPin) == HIGH );
+    endTimeUsec = micros();
 }

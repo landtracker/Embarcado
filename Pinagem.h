@@ -11,6 +11,9 @@ const int ECHOPIN_01 = 5;
 
 //--CONSTANTES DE SISTEMA
 
+ // Velocidade do som 340,29 m/s -&gt; 34029 cm/s
+ #define   VELOCIDADE_DO_SOM  34029
+
 
 
 

@@ -15,12 +15,11 @@ int main(int argc, char *argv[])
     }
     
     Ultrassom ultra1;
-    ultra1.setTriggerPin(TRIGERPIN_01);//Pinos definidos na Pinagem.h
-    ultra1.setEchoPin(ECHOPIN_01);
+    ultra1.iniciaUltrassom(TRIGERPIN_01, ECHOPIN_01);
     
     while(1)
     {
-        cout<<" Saida do Ulltrasom em cm: "<<ultra1.calculaDistancia()<<endl;    
+        cout<<" Saida do Ulltrasom em cm: "<<ultra1.calculaDistancia(30000)<<endl;    
         delay(300);
     }
     
