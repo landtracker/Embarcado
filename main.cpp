@@ -8,12 +8,8 @@ using namespace std;
 
 int main(int argc, char *argv[])
 {
-    if (wiringPiSetup() <= 0)
-    {
-        return -1;
-        cout<<"Pino Invalido!"<<endl;
-    }
-    
+   wiringPiSetup()
+   
     Ultrassom ultra1;
     ultra1.iniciaUltrassom(TRIGERPIN_01, ECHOPIN_01);
     
