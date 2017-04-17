@@ -8,7 +8,7 @@ using namespace std;
 
 int main(int argc, char *argv[])
 {
-   wiringPiSetup()
+   wiringPiSetup();
    
     Ultrassom ultra1;
     ultra1.iniciaUltrassom(TRIGERPIN_01, ECHOPIN_01);
