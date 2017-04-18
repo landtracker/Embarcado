@@ -2,6 +2,7 @@
 #include <wiringPi.h>
 
 // LED Pin - wiringPi pin 0 is BCM_GPIO 17.
+//g++ -o test testMotor.cpp -lwiringPi
 
 #define motorV 0
 #define motorD 2
@@ -24,37 +25,38 @@ int main (void)
   printf("Start\n");
   delay(1000);
 
-
+    while(1)
+    {
     printf("Frente\n");
     pwmWrite (servo, 150);
     digitalWrite (motorD, HIGH);  // On
     digitalWrite (motorV, HIGH);
-    delay (5000);               // mS
+    delay (8000);               // mS
     printf("Stop\n");
     digitalWrite (motorV, LOW);
-    delay (5000);
+    delay (3000);
     printf("Traz\n");
-    digitalWrite (motorD, LOW);
-    digitalWrite (motorV, HIGH);
-    delay(5000);
-    printf("Stop\n");
-    digitalWrite (motorV, LOW);
-    delay (5000);
-    printf("Esquerda\n");
-    pwmWrite (servo, 100);
-    delay(500);
-    digitalWrite (motorV, HIGH);
-    digitalWrite (motorD, HIGH);
-    delay (5000);
-    printf("Stop\n");
-    digitalWrite (motorV, LOW);
-    delay(5000);
-    printf("Direita\n");
-    pwmWrite (servo, 200);
-    delay(500);
-    digitalWrite (motorD, HIGH);
-    digitalWrite (motorV, HIGH);
-    delay (5000);
-
+//    digitalWrite (motorD, LOW);
+  //  digitalWrite (motorV, HIGH);
+   // delay(8000);
+   // printf("Stop\n");
+   // digitalWrite (motorV, LOW);
+  //  delay (3000);
+   // printf("Esquerda\n");
+   // pwmWrite (servo, 100);
+   // delay(500);
+//    digitalWrite (motorV, HIGH);
+  //  digitalWrite (motorD, HIGH);
+   // delay (3000);
+  //  printf("Stop\n");
+   // digitalWrite (motorV, LOW);
+   // delay(500);
+   // printf("Direita\n");
+   // pwmWrite (servo, 200);
+   // delay(500);
+   // digitalWrite (motorD, HIGH);
+   // digitalWrite (motorV, HIGH);
+   // delay (3000);
+   }
   return 0;
 }
