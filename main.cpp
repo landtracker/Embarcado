@@ -1,4 +1,5 @@
 #include "Ultrassom.h"
+#include "Servo.h"
 #include"Pinagem.h"
 #include <iostream>
 #include<string>

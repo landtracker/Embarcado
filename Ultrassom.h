@@ -1,9 +1,8 @@
 #ifndef _ULTRASSOM_H_
 #define _ULTRASSOM_H_
-
+#include <iostream>
 #include <wiringPi.h>
 #include <sys/time.h>
-#include"Pinagem.h"
 
 
 class Ultrassom{
