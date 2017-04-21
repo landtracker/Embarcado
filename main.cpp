@@ -15,9 +15,11 @@ int main(int argc, char *argv[])
    
     bool execute = true;
     string cancela;
+    int i =0;
     
     
-    wiringPiSetup();    
+    wiringPiSetup();
+	//pwmSetMode(PWM_MODE_MS);    
     if(wiringPiSetup()==-1)
     {
         
@@ -36,61 +38,63 @@ int main(int argc, char *argv[])
     ultra1->iniciaUltrassom(TRIGERPIN_01, ECHOPIN_01);//Pinos trigger e echo setados na Constantes_&_Pinos.h
     */
    
-   Servo *servo1;
-   servo1 = new Servo();
-   servo1->iniciaServo(SERVO_01);//Pino setado na Constantes_&_Pinos.h
+   Servo servo1;
+
+   servo1.iniciaServo(SERVO_01);//Pino setado na Constantes_&_Pinos.h
     
     while(execute)
     {
         //cout<<" Saida do Ulltrasom em cm: "<<ultra1->calculaDistancia(30000)<<endl; //Medindo a distancia do ultrassom 
-        servo1->setAngulo(0);
-        delay(300);
+        cout<<"Entrando no laço "<<i<<endl;
+	servo1.setAngulo(0);
+        delay(200);
         
-        servo1->setAngulo(30);
-        delay(300);
+        servo1.setAngulo(30);
+        delay(200);
         
-        servo1->setAngulo(60);
-        delay(300);
+        servo1.setAngulo(60);
+        delay(200);
         
-        servo1->setAngulo(90);
-        delay(300);
+        servo1.setAngulo(90);
+        delay(200);
         
-        servo1->setAngulo(120);
-        delay(300);
+        servo1.setAngulo(120);
+        delay(200);
         
-        servo1->setAngulo(150);
-        delay(300);
+        servo1.setAngulo(150);
+        delay(200);
         
-        servo1->setAngulo(180);
-        delay(300);
+        servo1.setAngulo(180);
+        delay(200);
         
-        servo1->setAngulo(150);
-        delay(300);
+        servo1.setAngulo(150);
+        delay(200);
         
-        servo1->setAngulo(120);
-        delay(300);
+        servo1.setAngulo(120);
+        delay(200);
         
-        servo1->setAngulo(90);
-        delay(300);
+        servo1.setAngulo(90);
+        delay(200);
         
-        servo1->setAngulo(60);
-        delay(300);
+        servo1.setAngulo(60);
+        delay(200);
         
-        servo1->setAngulo(30);
-        delay(300);
+        servo1.setAngulo(30);
+        delay(200);
         
-        servo1->setAngulo(0);
-        delay(300);
+        servo1.setAngulo(0);
+        delay(200);
          
         
-        cin >> cancela;   
-        
+       // cin >> cancela;   
+        /*
         if(cancela == "c")
         {
             execute = false;
             delete(servo1);
             //delete(ultra1);
-        }
+        }*/
+	i++;
         
     }
     

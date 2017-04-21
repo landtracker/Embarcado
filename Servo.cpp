@@ -61,7 +61,7 @@ void Servo::setAngulo(const unsigned _angulo)
         
         //de 0° a 90°
         
-        if(angulo>= 0 && angulo<10)
+   	 if(angulo>= 0 && angulo<10)
             
         {
             pwmWrite (getPin(), 200);//Setando 0°
@@ -126,7 +126,7 @@ void Servo::setAngulo(const unsigned _angulo)
         //90° a 180°
         
         
-        if(angulo>= 100 && angulo<110)
+       else  if(angulo>= 100 && angulo<110)
             
         {
             pwmWrite (getPin(), 144.44);//Setando 100°
@@ -186,7 +186,7 @@ void Servo::setAngulo(const unsigned _angulo)
 
         else
         {
-            cout<<"ERRO: Angulo Inválido!"<<endl;
+            cout<<"ERRO 1: Angulo Inválido!"<<endl;
 
         }
     }
@@ -194,7 +194,7 @@ void Servo::setAngulo(const unsigned _angulo)
     else
 
     {
-        cout<<"ERRO: Angulo Inválido!"<<endl;
+        cout<<"ERRO 2: Angulo Inválido!"<<endl;
     }
 
     
