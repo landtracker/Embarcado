@@ -8,8 +8,8 @@
 class Ultrassom{
     
 private:
-    int _triggerPin;
-    int _echoPin;
+    int triggerPin;
+    int echoPin;
     
     volatile long startTimeUsec;
     volatile long endTimeUsec;
@@ -18,21 +18,23 @@ private:
     long now;
     
     //Funcões Privadas
-    void setTriggerPin(const int triggerIn);//--Seta pino do trigger
-    void setEchoPin(const int echoIn);//--Seta pino do echo
+    void setTriggerPin(const int _triggerIn);//--Seta pino do trigger
+    void setEchoPin(const int _echoIn);//--Seta pino do echo
     void recordPulseLength();
+    
+    const unsigned getTriggerPin();
+    const unsigned getTriggerEcho();
     
     
 public:
     
-    Ultrassom(){};
-    
+    Ultrassom(){};    
     ~Ultrassom(){};
     
     
     
+    void iniciaUltrassom(const int _triggerIn, const int _echoIn);
     float calculaDistancia(int timeout);//--retorna o valor medido pela classe
-    void iniciaUltrassom(const int triggerIn, const int echoIn);
     
     
 };

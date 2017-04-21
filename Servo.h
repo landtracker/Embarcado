@@ -11,12 +11,12 @@ class Servo{
     
 private:
     
-    int _servoPin;
-    unsigned _pwm;
-    unsigned _range;
-    unsigned _angulo;
+    int servoPin;
+    unsigned pwm;
+    unsigned range;
+    unsigned angulo;
     
-    void setServoPin(const int servoIn);//--Seta pino do trigger
+    void setServoPin(const int _servoIn);//--Seta pino do trigger
     
     
     
@@ -26,12 +26,12 @@ public:
     Servo();
     ~Servo();
     
-    void iniciaServo(const int servoIn);
-    void setClock(const unsigned pwm);
-    void setRange(const unsigned range);
-    void setAngulo(const unsigned angulo);
+    void iniciaServo(const int _servoIn);
+    void setClock(const unsigned _pwm);
+    void setRange(const unsigned _range);
+    void setAngulo(const unsigned _angulo);
     
-    const int getPin();
+    const unsigned getPin();
     
     
 };

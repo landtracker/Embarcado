@@ -3,56 +3,62 @@
 
 Servo::Servo()
 {
-    _servoPin = -1;
-    _pwm = 0;
-    _range = 0;  
+    servoPin = -1;
+    pwm = 0;
+    range = 0;  
     
 }
 
-Servo::~Servo(){}
+Servo::~Servo()
+{
+    servoPin = -1;
+    pwm = 0;
+    range = 0;  
+    
+}
 
-void Servo::iniciaServo(const int servoIn)
+void Servo::iniciaServo(const int _servoIn)
 {
     
-    setServoPin(const int servoIn);
+    setServoPin(_servoIn);
     pinMode (getPin(), PWM_OUTPUT); //
     pwmSetMode (PWM_MODE_MS);    
     
 }
 
 
-Servo::setServoPin(const int servoIn)
+void Servo::setServoPin(const int _servoIn)
 {
     
-    this._servoPin = servoIn;
+    servoPin = _servoIn;
 }
 
 
-void Servo::setClock(const unsigned pwm)
+void Servo::setClock(const unsigned _pwm)
 {
     
-    this._pwm = pwm;
-    pwmSetClock(this._pwm);
+    pwm = _pwm;
+    pwmSetClock(pwm);
 }
 
-void Servo::setRange(const unsigned range)
+void Servo::setRange(const unsigned _range)
 {
-    this._range = range;
-    pwmSetRange (this._range);
+    range = _range;
+    pwmSetRange (range);
 }
 
-void Servo::setAngulo(const unsigned angulo)
-{
-    
-    this._angulo = angulo; 
-    pwmWrite (getPin, this._angulo);
-}
-
-
-const int Servo::getPin()
+void Servo::setAngulo(const unsigned _angulo)
 {
     
-    return this._servoPin;
+    angulo = _angulo; 
+    pwmWrite (getPin(), angulo);
+}
+
+
+const unsigned Servo::getPin()
+{
+    
+    return servoPin;
     
 }   
 
