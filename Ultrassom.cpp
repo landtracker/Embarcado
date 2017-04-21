@@ -1,5 +1,20 @@
 #include "Ultrassom.h"
 
+Ultrassom::Ultrassom()
+
+{
+    triggerPin = -1;
+    echoPin = -1;
+}
+  
+
+
+Ultrassom::~Ultrassom()
+
+{
+    triggerPin = -1;
+    echoPin = -1;
+}
   
 
 void Ultrassom::iniciaUltrassom(const int _triggerIn, const int _echoIn)

@@ -28,8 +28,8 @@ private:
     
 public:
     
-    Ultrassom(){};    
-    ~Ultrassom(){};
+    Ultrassom();    
+    ~Ultrassom();
     
     
     
