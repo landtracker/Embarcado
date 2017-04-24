@@ -47,45 +47,18 @@ int main(int argc, char *argv[])
     {
         //cout<<" Saida do Ulltrasom em cm: "<<ultra1->calculaDistancia(30000)<<endl; //Medindo a distancia do ultrassom 
         cout<<"Entrando no laço "<<i<<endl;
+		cout << "0 Graus" << endl;
 		servo1.setAngulo(0);
-        delay(200);
-        
-        servo1.setAngulo(30);
-        delay(200);
-        
-        servo1.setAngulo(60);
-        delay(200);
-        
-        servo1.setAngulo(90);
-        delay(200);
-        
-        servo1.setAngulo(120);
-        delay(200);
-        
-        servo1.setAngulo(150);
-        delay(200);
-        
-        servo1.setAngulo(180);
-        delay(200);
-        
-        servo1.setAngulo(150);
-        delay(200);
-        
-        servo1.setAngulo(120);
-        delay(200);
-        
-        servo1.setAngulo(90);
-        delay(200);
-        
-        servo1.setAngulo(60);
-        delay(200);
-        
-        servo1.setAngulo(30);
-        delay(200);
-        
-        servo1.setAngulo(0);
-        delay(200);
-         
+		delay(1000);
+		cout << "90 Graus" << endl;
+		servo1.setAngulo(90);
+		delay(1000);
+		cout << "180 Graus" << endl;
+		servo1.setAngulo(180);
+		delay(1000);
+		cout << "45 Graus" << endl;
+		servo1.setAngulo(45);
+		delay(1000);
         
        // cin >> cancela;   
         /*
