@@ -1,9 +1,10 @@
 #include <iostream>
-#include<string>
+#include <string>
 #include <wiringPi.h>
 #include <softPwm.h>
 #include "Ultrassom.h"
 #include "Servo.h"
+#include "MotorDC.h"
 #include"Constantes_&_Pinos.h"
 
 
@@ -46,7 +47,7 @@ int main(int argc, char *argv[])
     {
         //cout<<" Saida do Ulltrasom em cm: "<<ultra1->calculaDistancia(30000)<<endl; //Medindo a distancia do ultrassom 
         cout<<"Entrando no laço "<<i<<endl;
-	servo1.setAngulo(0);
+		servo1.setAngulo(0);
         delay(200);
         
         servo1.setAngulo(30);

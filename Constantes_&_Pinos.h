@@ -39,7 +39,8 @@ const unsigned SERVO_01 = 1;//Gpio da Biblioteca wiringiPi
 
 //Pinos motor
 
-
+const unsigned MOTOR_VEL = 0; //Pino de pwm do motor DC
+const unsigned MOTOR_DIR = 2; //Pino de direcao do motor DC
 
 
 

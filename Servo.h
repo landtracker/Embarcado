@@ -18,9 +18,7 @@ private:
     unsigned range;
     unsigned angulo;
     
-    void setServoPin(const int _servoIn);//--Seta pino do trigger
-    void setClock(const unsigned _pwm);
-    void setRange(const unsigned _range);
+    void setServoPin(const int _servoIn);//--Seta pino de controle
     
     
     
@@ -32,10 +30,6 @@ public:
     
     void iniciaServo(const int _servoIn);   
     void setAngulo(const unsigned _angulo);
-    
-    const unsigned getPin();
-    
-    
 };
 
 
