@@ -30,6 +30,8 @@ public:
     
     void iniciaServo(const int _servoIn);   
     void setAngulo(const unsigned _angulo);
+	void varreduraD();
+	void varreduraE();
 };
 
 
