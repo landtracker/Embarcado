@@ -47,7 +47,7 @@ void Servo::varreduraD()
 	for (int i = 100; i < 200; i++)
 	{
 		pwmWrite(servoPin, i);
-		delay(500);
+		delay(50);
 	}
 		
 }
@@ -57,7 +57,7 @@ void Servo::varreduraE()
 	for (int i = 200; i > 100; i--)
 	{
 		pwmWrite(servoPin, i);
-		delay(500);
+		delay(50);
 	}
 
 }
