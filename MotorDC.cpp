@@ -22,7 +22,9 @@ MotorDC::~MotorDC()
     
 }
 
-void Frente(const unsigned _duracao)
+
+
+void MotorDC::Frente(const unsigned _duracao)
 {
 	digitalWrite(velPin, HIGH);
 	digitalWrite(dirPin, HIGH);
@@ -30,7 +32,7 @@ void Frente(const unsigned _duracao)
 	Stop();
 
 }
-void Traz(const unsigned _duracao)
+void MotorDC::Traz(const unsigned _duracao)
 {
 	digitalWrite(velPin, HIGH);
 	digitalWrite(dirPin, LOW);
@@ -39,7 +41,7 @@ void Traz(const unsigned _duracao)
 
 }
 
-void Stop()
+void MotorDC::Stop()
 {
 	digitalWrite(velPin, LOW);
 	digitalWrite(dirPin, LOW);
