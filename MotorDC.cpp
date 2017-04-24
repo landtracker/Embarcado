@@ -2,7 +2,7 @@
 #include"Constantes_&_Pinos.h"
 
 
-MotorDC::Servo(unsigned vel, unsigned dir)
+MotorDC::MotorDC(unsigned vel, unsigned dir)
 {
 	velPin = vel;
 	dirPin = dir;
