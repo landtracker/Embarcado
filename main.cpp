@@ -59,6 +59,9 @@ int main(int argc, char *argv[])
 		cout << "45 Graus" << endl;
 		servo1.setAngulo(45);
 		delay(1000);
+		cout << "210 Graus" << endl;
+		servo1.setAngulo(210);
+		delay(1000);
         
        // cin >> cancela;   
         /*
