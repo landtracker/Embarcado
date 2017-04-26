@@ -35,6 +35,8 @@ const unsigned PWMRANGE = 2000;
 //Pinos Servo
 
 const unsigned SERVO_01 = 1;//Gpio da Biblioteca wiringiPi
+const unsigned SERVO_02 = 7;//Gpio da Biblioteca wiringiPi
+
 
 
 //Pinos motor
