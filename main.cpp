@@ -19,7 +19,7 @@ int main(int argc, char *argv[])
     int i =1;
     
     
-    wiringPiSetup();
+    //wiringPiSetup(); Funcao sendo chamada 2 vezes
     if(wiringPiSetup()<0)
     {
         
@@ -41,7 +41,7 @@ int main(int argc, char *argv[])
    Servo servo1;
 
    //servo1.iniciaServo(SERVO_01, 0);//Pino setado na Constantes_&_Pinos.h
-   servo1.iniciaServo(SERVO_02, 1);//Pino de acordo com a bibliote GPIO e uso de softPwm
+   servo1.iniciaServo(SERVO_02, 1);//Pino de acordo com a biblioteca GPIO e uso de softPwm
     
     while(execute)
     {

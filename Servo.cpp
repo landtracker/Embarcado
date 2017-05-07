@@ -66,12 +66,12 @@ void Servo::setAngulo(const unsigned _angulo)
     
     if(flag==0)
     {
-        pwmWrite(servoPin, (200-(_angulo/1.8)));
+        pwmWrite(servoPin, ((_angulo/1.8) + 100));
     }
     
     else if(flag==1)
     {
-        softPwmWrite(servoPin, (20-(_angulo/18))); 
+        softPwmWrite(servoPin, (_angulo/1.8)); //Range 0 a 100 e nao 0 a 150
         
     }
     
