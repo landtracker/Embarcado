@@ -28,8 +28,9 @@ ServerTCP::ServerTCP()
 }
 ///------------------------------------------------------------------------------------------------------
 
-ServerTCP::ServerTCP(int port)
+ServerTCP::ServerTCP(int port, ExecutorDeComandos *exec)
 {
+    ptrExecutorDeComandos = exec;
     portNumber = port;
     socketfd = socket(AF_INET, SOCK_STREAM, 0); //obtém o socket do sistema
     ///AF_INET = socket que aceita endereços ipv4
@@ -76,28 +77,50 @@ void ServerTCP::acceptConections()
             perror("Erro ao receber conexao\n");
             return;
         }
-        puts("Handler assigned");
+        puts("Handler assigned\n\n");
 
         int tamanho = 1;
-        char resposta[256];
+        unsigned char resposta[1024];///o tamanho máximo dos pacotes será de 513 bytes (256 comandos de dois chars e um char a mais para dizer o número de comandos recebidos)
         while(tamanho>0)
         {
-            if ((tamanho = read(conexao, resposta, 256)) < 0)
+            if ((tamanho = read(conexao, resposta, 1024)) < 0)
             {
                 perror("Erro ao receber dados do cliente: ");
 
             }
             else
             {
-                resposta[tamanho] = '\0';
-                printf("O cliente falou: %s\n", resposta);
+
+                for(int i = 1; i< tamanho; )
+                {
+                    printf("tamanho: %d\n", tamanho);///teste
+                    printf("resposta[0]: %d\n", (int)resposta[0]);///teste
+                    if(tamanho< 2*(int)resposta[0]+1)
+                    {
+                        printf("deu errado aqui\n");
+                        break; ///se a resposta é menor que esse valor, então o comando chegou quebrado
+                    }
+
+                    Comando c;
+                    cout<<(int)resposta[i]<<endl;
+                    cout<<(int)resposta[i+1]<<endl;
+                    c.setTipoDeComando(resposta[i]);
+                    c.setDescritorDoComando(resposta[i+1]);
+                    ptrExecutorDeComandos->insereComandoNaLista(c);
+                    i = i+2;
+                }
+
+                ///teste
+                //resposta[tamanho] = '\0';
+                //printf("O cliente falou: %s\n", resposta);
+
             }
 
-            if (strcmp(resposta, "end") == 0) {
+            /*if (strcmp(resposta, "end") == 0) {
                 close(conexao);
                 printf("Servidor finalizado...\n");
                 return;
-            }
+            }*/
         }
     }
 }

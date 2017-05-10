@@ -1,82 +1,55 @@
-#include <iostream>
-#include <string>
-#include <wiringPi.h>
-//#include <softPwm.h>
-#include "Ultrassom.h"
-#include "Servo.h"
-#include "MotorDC.h"
-#include"Constantes_&_Pinos.h"
-
-
-using namespace std;
-
-
-int main(int argc, char *argv[])
+#include "defines.h"
+#include "ServerTCP.h"
+#include"ClientTCP.h"
+#include "ExecutorDeComandos.h"
+#include <sys/resource.h>
+#include<string>
+int main()
 {
-   
-    bool execute = true;
-    string cancela;
-    int i =1;
-    
-    
-    //wiringPiSetup(); Funcao sendo chamada 2 vezes
-    if(wiringPiSetup()<0)
-    {
-        
-        execute = false;
-        cout<<"Erro na Biblioteca wiringPi"<<endl;
-        
-        return 1;
-        
-    }
-   
-   
-   /*
-   Ultrassom *ultra1;//Objeto do Ultrassom
-    ultra1 = new Ultrassom();
-    
-    ultra1->iniciaUltrassom(TRIGERPIN_01, ECHOPIN_01);//Pinos trigger e echo setados na Constantes_&_Pinos.h
-    */
-   
-   Servo servo1;
-
-   //servo1.iniciaServo(SERVO_01, 0);//Pino setado na Constantes_&_Pinos.h
-   servo1.iniciaServo(SERVO_02, 1);//Pino de acordo com a biblioteca GPIO e uso de softPwm
-    
-    while(execute)
-    {
-        //cout<<" Saida do Ulltrasom em cm: "<<ultra1->calculaDistancia(30000)<<endl; //Medindo a distancia do ultrassom 
-        cout<<"Entrando no laço "<<i<<endl;
+    int processPid = getpid(); ///captura o pid do desse processo
+    int which = PRIO_PROCESS;
+    int priority = -20;///variável que indica a a prioridade a ser setada para esse processo
+    int ret = setpriority(which, processPid, priority);///seto a nova prioridade desse processo para a máxima em sistema unix
+    ///Se setpriority retorna 0, então a nova prioridade foi setada
 
 
-        
+    ExecutorDeComandos executorDeComandos;
 
-		delay(200);
-        cout<<"Servo virando a Direita"<<endl;
-		servo1.varreduraD();
-        
-		delay(200);
-        cout<<"Servo virando a Esquerda"<<endl;
+    thread threadExecutorDeComandos = executorDeComandos.getExecutorDeComandosThread();
+    ///inicia o server do raspberry para receber os comandos da estação base
+    ServerTCP server(1234, &executorDeComandos);
+    ///captura a thread do server
+    thread serverThread = server.getServerThread();
 
-		servo1.varreduraE();
-		delay(200);
-		
+    sleep(1);///dou um tempo só para garantir que o server está ativo na porta antes do cliente mandar alguma coisa
+    ///inicia um cliente TCP que enviará os dados de vídeo e áudio para a estação base
+    //ClientTCP client(1234, "127.0.0.1");
 
 
-       // cin >> cancela;   
-        /*
-        if(cancela == "c")
-        {
-            execute = false;
-            delete(servo1);
-            //delete(ultra1);
-        }*/
-	i++;
-        
-    }
-    
-    cout<<"Encerrando o programa. Fim da execução do Sistema embarcado"<<endl;
-    
-   
-    return 0;
+
+
+
+    ///teste
+    /*char comando[3]; ///teste
+    comando[0] = 1; ///teste
+    comando[1] = 1; ///teste
+    comando[2] = 10; ///teste
+
+    client.sendMessageToServer(comando , 3);///teste cliente enviando dados ao server
+
+    comando[0] = 1; ///teste
+    comando[1] = 0; ///teste
+    comando[2] = 3; ///teste
+
+    client.sendMessageToServer(comando , 3);///teste cliente enviando dados ao server
+    //client.sendMessageToServer("end", 4);///teste cliente enviando dados ao server
+    printf("\n depois da thread...");///teste
+    printf("\n depois da thread...");///teste
+    printf("\n depois da thread...");///teste
+    printf("\n depois da thread...");///teste
+    printf("\n depois da thread...");///teste*/
+
+
+    threadExecutorDeComandos.join();///espero a thread do executor de comandos terminar
+    serverThread.join();///fica esperando a thread do server finalizar para encerrar o software
 }

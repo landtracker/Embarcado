@@ -8,27 +8,28 @@ using namespace std;
 
 
 class MotorDC{
-    
+
 private:
-    
-    unsigned velPin;    
+
+    unsigned velPin;
 	unsigned dirPin;
 
-    
-    
-    
+
+
+
 public:
-    
-    
+
+    MotorDC();
     MotorDC(unsigned vel, unsigned dir);
     ~MotorDC();
-    
-    void Frente(const unsigned _duracao);   
-    void Traz(const unsigned _duracao);
+
+    void Frente(const unsigned _duracao);
+    void Tras(const unsigned _duracao);
 	void Stop();
 
-    
-    
+    void setup(unsigned vel, unsigned dir);
+
+
 };
 
 

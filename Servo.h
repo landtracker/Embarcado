@@ -10,30 +10,33 @@ using namespace std;
 
 
 class Servo{
-    
+
 private:
-    
+
     int servoPin;
     unsigned pwm;
     unsigned range;
     unsigned angulo;
     int flag;
-    
+
     void setServoPin(const int _servoIn);//--Seta pino de controle
-    
-    
-    
+
+
+
 public:
-    
-    
+
+
     Servo();
     ~Servo();
-    
-    void iniciaServo(const int _servoIn, const int _flag);   
+
+    void iniciaServo(const int _servoIn, const int _flag);
     void setAngulo(const unsigned _angulo);
     void setFlag(const int _flag);
-	void varreduraD();
-	void varreduraE();
+    void Direita();
+    void Esquerda();
+    void Alinhar();
+    void varreduraD();
+    void varreduraE();
 };
 
 

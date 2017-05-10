@@ -15,6 +15,7 @@
     #include <sys/types.h>
     #include <netinet/in.h>
     #include <arpa/inet.h>
+    #include "ExecutorDeComandos.h"
 
     using namespace std;
     /*
@@ -32,6 +33,8 @@
             string clienteIp; //ip do cliente
             int clientePort; //porta da aplicação no cliente
 
+            ExecutorDeComandos* ptrExecutorDeComandos;
+
     public:
         /**
         *Descição: Construtor da classe
@@ -41,8 +44,9 @@
         /**
         *Descição: sobrecarga do construtor da classe
         *Argumento: port => (int) indica a porta na qual o servidor ficará escutando
+        *Argumento: port => (ExecutorDeComandos*) ponteiro com a referência do executor de comandos para poder adicionar comandos à sua lista
         */
-        ServerTCP(int port);
+        ServerTCP(int port, ExecutorDeComandos *exec);
 
         /**
         *Descição: Destrutor da classe
