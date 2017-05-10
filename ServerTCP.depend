@@ -1,0 +1,158 @@
+# depslib dependency file v1.0
+1492913373 source:/home/lucas/Dropbox/UTFPR/7_periodo/oficina_de_integracao_3/codigos/ServerTCP/serverTCP.cpp
+	"serverTCP.h"
+
+1494203142 source:/home/lucas/Dropbox/UTFPR/7_periodo/oficina_de_integracao_3/codigos/ServerTCP/main.cpp
+	"defines.h"
+	"ServerTCP.h"
+	"ClientTCP.h"
+	"ExecutorDeComandos.h"
+	<sys/resource.h>
+
+1492911939 /home/lucas/Dropbox/UTFPR/7_periodo/oficina_de_integracao_3/codigos/ServerTCP/serverTCP.h
+	"defines.h"
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<sys/socket.h>
+	<netdb.h>
+	<thread>
+	<iostream>
+
+1494112068 /home/lucas/Dropbox/UTFPR/7_periodo/oficina_de_integracao_3/codigos/ServerTCP/defines.h
+
+1493226431 /home/lucas/Dropbox/UTFPR/7_periodo/oficina_de_integracao_3/codigos/ServerTCP/ServerTCP.h
+	"defines.h"
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<sys/socket.h>
+	<netdb.h>
+	<thread>
+	<iostream>
+	<unistd.h>
+	<sys/types.h>
+	<netinet/in.h>
+	<arpa/inet.h>
+
+1493227822 source:/home/lucas/Dropbox/UTFPR/7_periodo/oficina_de_integracao_3/codigos/ServerTCP/ClietTCP.cpp
+	"ClientTCP.h"
+
+1493230101 /home/lucas/Dropbox/UTFPR/7_periodo/oficina_de_integracao_3/codigos/ServerTCP/ClientTCP.h
+	"defines.h"
+	<stdio.h>
+	<stdlib.h>
+	<unistd.h>
+	<string.h>
+	<sys/types.h>
+	<sys/socket.h>
+	<netinet/in.h>
+	<netdb.h>
+	<iostream>
+
+1494095258 source:/home/lucas/Dropbox/UTFPR/7_periodo/oficina_de_integracao_3/codigos/ServerTCP/ServerTCP.cpp
+	"ServerTCP.h"
+
+1494098500 source:/home/lucas/Dropbox/UTFPR/7_periodo/oficina_de_integracao_3/codigos/ServerTCP/Comando.cpp
+	"Comando.h"
+
+1494097457 /home/lucas/Dropbox/UTFPR/7_periodo/oficina_de_integracao_3/codigos/ServerTCP/Comando.h
+	"defines.h"
+	<stdio.h>
+	<stdlib.h>
+
+1494106346 source:/home/lucas/Dropbox/UTFPR/7_periodo/oficina_de_integracao_3/codigos/ServerTCP/ExecutorDeComandos.cpp
+
+1494201895 /home/lucas/Dropbox/UTFPR/7_periodo/oficina_de_integracao_3/codigos/ServerTCP/ExecutorDeComandos.h
+	"defines.h"
+	<stdio.h>
+	<stdlib.h>
+	<queue>
+	<thread>
+	<mutex>
+	<unistd.h>
+	"Comando.h"
+
+1493227822 source:/home/lucas/Dropbox/UTFPR/7_periodo/oficina_de_integracao_3/codigos/ServerTCP_com_acionamento_de_motores/ClietTCP.cpp
+	"ClientTCP.h"
+
+1493230101 /home/lucas/Dropbox/UTFPR/7_periodo/oficina_de_integracao_3/codigos/ServerTCP_com_acionamento_de_motores/ClientTCP.h
+	"defines.h"
+	<stdio.h>
+	<stdlib.h>
+	<unistd.h>
+	<string.h>
+	<sys/types.h>
+	<sys/socket.h>
+	<netinet/in.h>
+	<netdb.h>
+	<iostream>
+
+1494112068 /home/lucas/Dropbox/UTFPR/7_periodo/oficina_de_integracao_3/codigos/ServerTCP_com_acionamento_de_motores/defines.h
+
+1494098500 source:/home/lucas/Dropbox/UTFPR/7_periodo/oficina_de_integracao_3/codigos/ServerTCP_com_acionamento_de_motores/Comando.cpp
+	"Comando.h"
+
+1494097457 /home/lucas/Dropbox/UTFPR/7_periodo/oficina_de_integracao_3/codigos/ServerTCP_com_acionamento_de_motores/Comando.h
+	"defines.h"
+	<stdio.h>
+	<stdlib.h>
+
+1494213550 source:/home/lucas/Dropbox/UTFPR/7_periodo/oficina_de_integracao_3/codigos/ServerTCP_com_acionamento_de_motores/ExecutorDeComandos.cpp
+	"ExecutorDeComandos.h"
+
+1494249614 /home/lucas/Dropbox/UTFPR/7_periodo/oficina_de_integracao_3/codigos/ServerTCP_com_acionamento_de_motores/ExecutorDeComandos.h
+	"defines.h"
+	<stdio.h>
+	<stdlib.h>
+	<iostream>
+	<queue>
+	<thread>
+	<mutex>
+	<unistd.h>
+	"Comando.h"
+	<wiringPi.h>
+	"Ultrassom.h"
+	"Servo.h"
+	"MotorDC.h"
+
+1494213412 source:/home/lucas/Dropbox/UTFPR/7_periodo/oficina_de_integracao_3/codigos/ServerTCP_com_acionamento_de_motores/ServerTCP.cpp
+	"ServerTCP.h"
+
+1494203883 /home/lucas/Dropbox/UTFPR/7_periodo/oficina_de_integracao_3/codigos/ServerTCP_com_acionamento_de_motores/ServerTCP.h
+	"defines.h"
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<sys/socket.h>
+	<netdb.h>
+	<thread>
+	<iostream>
+	<unistd.h>
+	<sys/types.h>
+	<netinet/in.h>
+	<arpa/inet.h>
+	"ExecutorDeComandos.h"
+
+1494213760 source:/home/lucas/Dropbox/UTFPR/7_periodo/oficina_de_integracao_3/codigos/ServerTCP_com_acionamento_de_motores/main.cpp
+	"defines.h"
+	"ServerTCP.h"
+	"ClientTCP.h"
+	"ExecutorDeComandos.h"
+	<sys/resource.h>
+	<string>
+
+1493229214 /home/lucas/Dropbox/UTFPR/7_periodo/oficina_de_integracao_3/codigos/ServerTCP_com_acionamento_de_motores/Ultrassom.h
+	<iostream>
+	<wiringPi.h>
+	<sys/time.h>
+
+1493229214 /home/lucas/Dropbox/UTFPR/7_periodo/oficina_de_integracao_3/codigos/ServerTCP_com_acionamento_de_motores/Servo.h
+	<iostream>
+	<wiringPi.h>
+	<softPwm.h>
+
+1493229214 /home/lucas/Dropbox/UTFPR/7_periodo/oficina_de_integracao_3/codigos/ServerTCP_com_acionamento_de_motores/MotorDC.h
+	<iostream>
+	<wiringPi.h>
+
