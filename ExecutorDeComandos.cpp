@@ -131,6 +131,44 @@ void ExecutorDeComandos::executaComando(Comando c)
         printf("Fim do comando de ir para direita...");
 
     }
+    else if(c.getTipoDeComando() == 5) ///comando para ativar streamming de vídeo
+    {
+        printf("ExecutorDeComandos::executaComando: Comando para ativar streamming de video\n");
+
+        system("./home/pi/Embarcado/activeVideoStreamming");
+    }
+    else if(c.getTipoDeComando() == 6) ///comando para desativar streamming de vídeo
+    {
+        printf("ExecutorDeComandos::executaComando: Comando para desativar streamming de video\n");
+
+        system("killall activeVideoStreamming");
+    }
+    else if(c.getTipoDeComando() == 7) ///comando para ativar streamming de audio
+    {
+        printf("ExecutorDeComandos::executaComando: Comando para ativar streamming de audio\n");
+
+        system("./home/pi/Embarcado/activeAudioStreamming");
+    }
+    else if(c.getTipoDeComando() == 8) ///comando para desativar streamming de audio
+    {
+        printf("ExecutorDeComandos::executaComando: Comando para desativar streamming de audio\n");
+
+        system("killall activeAudioStreamming");
+    }
+    else if(c.getTipoDeComando() == 9) ///comando para mover a câmera para a esquerda
+    {
+        printf("ExecutorDeComandos::executaComando: Comando para mover a câmera para a esquerda\n");
+
+        printf(" descritor: %d\n\n", (int)c.getDescritorDoComando());
+
+    }
+    else if(c.getTipoDeComando() == 10) ///comando para mover a câmera para a direita
+    {
+        printf("ExecutorDeComandos::executaComando: Comando para mover a câmera para a direita\n");
+
+        printf(" descritor: %d\n\n", (int)c.getDescritorDoComando());
+
+    }
     /**
     .
     .
