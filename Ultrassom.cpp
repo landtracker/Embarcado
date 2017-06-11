@@ -6,7 +6,7 @@ Ultrassom::Ultrassom()
     triggerPin = -1;
     echoPin = -1;
 }
-  
+
 
 
 Ultrassom::~Ultrassom()
@@ -15,7 +15,7 @@ Ultrassom::~Ultrassom()
     triggerPin = -1;
     echoPin = -1;
 }
-  
+
 
 void Ultrassom::iniciaUltrassom(const int _triggerIn, const int _echoIn)
 {
@@ -26,36 +26,43 @@ void Ultrassom::iniciaUltrassom(const int _triggerIn, const int _echoIn)
     pinMode(triggerPin, OUTPUT);
     pinMode(echoPin, INPUT);
     digitalWrite(triggerPin, LOW);
-    delay(500);
+    delay(50);
     
     
 }
 
 
-float Ultrassom::calculaDistancia(int timeout){//--Retorna a distância medida
+int Ultrassom::calculaDistancia(){//--Retorna a distância medida
     
-    float distancia;
+    int distancia = -1;
+    long unsigned startTime = 0;
+    long unsigned travelTime = 0;
     
-    delay(10);
-    //--Emite o pulso!
-    digitalWrite(triggerPin, LOW);
-    delayMicroseconds(30);
+    digitalWrite(getTriggerPin(), LOW);
+    delayMicroseconds(5);
     
-    digitalWrite(triggerPin, HIGH);
-    delayMicroseconds(20);
-    digitalWrite(triggerPin, LOW);
+    digitalWrite(getTriggerPin(), HIGH);
+    delayMicroseconds(10);
     
-     now=micros();
-     
-     
-    while (digitalRead(echoPin) == LOW && micros()-now<timeout);
-    {
-    recordPulseLength();
-
-    travelTimeUsec = endTimeUsec - startTimeUsec;
-    distancia = 100*((travelTimeUsec/1000000.0)*340.29)/2;
+    digitalWrite(getTriggerPin(), LOW);
     
+    //Esperando o retorno do som
+    while(digitalRead(echoPin) == LOW){
+        
+        //Esperando o retorno do som
+        startTime = micros();
     }
+    while(digitalRead(echoPin) == HIGH)
+    {
+        travelTime = micros() - startTime;
+        
+        //Get distance in cm
+        distancia = ((travelTime/2) / 29.1);
+        //distancia = ((100*(travelTime/1000000)*330) /2);
+    }
+    
+    
+    
     //Distancia em cm   
     return distancia;
 }
@@ -69,13 +76,6 @@ void Ultrassom::setEchoPin(const int _echoIn){
 }
 
 
-void Ultrassom::recordPulseLength()
-{
-    startTimeUsec = micros();
-    while ( digitalRead(echoPin) == HIGH );
-    endTimeUsec = micros();
-}
-
 
 const unsigned Ultrassom::getTriggerPin()
 {
@@ -84,5 +84,5 @@ const unsigned Ultrassom::getTriggerPin()
 }
 const unsigned Ultrassom::getTriggerEcho()
 {
- return echoPin;   
+    return echoPin;   
 }
