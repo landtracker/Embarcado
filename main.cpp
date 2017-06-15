@@ -4,6 +4,17 @@
 #include "ExecutorDeComandos.h"
 #include <sys/resource.h>
 #include<string>
+
+void sendInformationsToBaseStation()
+{
+    ClientTCP client(1234, "127.0.0.1");
+    while(true)
+    {
+        sleep(1);
+        client.sendMessageToServer("123" , 3);///teste cliente enviando dados ao server
+    }
+}
+
 int main()
 {
     int processPid = getpid(); ///captura o pid do desse processo
@@ -24,7 +35,8 @@ int main()
     sleep(1);///dou um tempo só para garantir que o server está ativo na porta antes do cliente mandar alguma coisa
     ///inicia um cliente TCP que enviará os dados de vídeo e áudio para a estação base
     //ClientTCP client(1234, "127.0.0.1");
-
+    
+    thread enviaInformacoesEstacaoBase = sendInformationsToBaseStation();
 
 
 
