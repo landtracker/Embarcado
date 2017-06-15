@@ -159,16 +159,16 @@ void ExecutorDeComandos::executaComando(Comando c)
     else if(c.getTipoDeComando() == 9) ///comando para mover a câmera para a esquerda
     {
         printf("ExecutorDeComandos::executaComando: Comando para mover a câmera para a esquerda\n");
-
         printf(" descritor: %d\n\n", (int)c.getDescritorDoComando());
-
+        unsigned anguloAtual = servoMotorCamera.getAngulo();
+        servoMotorCamera.setAngulo(anguloAtual + (unsigned)c.getDescritorDoComando());
     }
     else if(c.getTipoDeComando() == 10) ///comando para mover a câmera para a direita
     {
         printf("ExecutorDeComandos::executaComando: Comando para mover a câmera para a direita\n");
-
         printf(" descritor: %d\n\n", (int)c.getDescritorDoComando());
-
+        unsigned anguloAtual = servoMotorCamera.getAngulo();
+        servoMotorCamera.setAngulo(anguloAtual - (unsigned)c.getDescritorDoComando());
     }
     /**
     .
