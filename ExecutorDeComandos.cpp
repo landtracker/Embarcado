@@ -9,7 +9,7 @@ ExecutorDeComandos::ExecutorDeComandos()
     if(wiringPiSetup()>=0)
     {
         motorDeTracao.setup(0,2);
-        servoMotorDirecao.iniciaServo(SERVO_01, 2);
+        servoMotorDirecao.iniciaServo(SERVO_01, 0);
     }
 
 }
@@ -115,7 +115,7 @@ void ExecutorDeComandos::executaComando(Comando c)
 
         servoMotorDirecao.Esquerda();
         motorDeTracao.Frente((int)c.getDescritorDoComando());
-        servoMotorDirecao.Direita();
+        servoMotorDirecao.Alinhar();
         printf("Fim do comando de ir para esquerda...");
 
     }
@@ -127,7 +127,7 @@ void ExecutorDeComandos::executaComando(Comando c)
 
         servoMotorDirecao.Direita();
         motorDeTracao.Frente((int)c.getDescritorDoComando());
-        servoMotorDirecao.Esquerda();
+        servoMotorDirecao.Alinhar();
         printf("Fim do comando de ir para direita...");
 
     }
@@ -135,25 +135,26 @@ void ExecutorDeComandos::executaComando(Comando c)
     {
         printf("ExecutorDeComandos::executaComando: Comando para ativar streamming de video\n");
 
-        system("./home/pi/Embarcado/activeVideoStreamming");
+        system("raspivid -vf -n -w 640 -h 480 -o - -t 0 -b 200000 | nc 192.168.43.50 2234 &");
     }
     else if(c.getTipoDeComando() == 6) ///comando para desativar streamming de vídeo
     {
         printf("ExecutorDeComandos::executaComando: Comando para desativar streamming de video\n");
 
-        system("killall activeVideoStreamming");
+        system("killall activeVideoStream.sh &");
     }
     else if(c.getTipoDeComando() == 7) ///comando para ativar streamming de audio
     {
         printf("ExecutorDeComandos::executaComando: Comando para ativar streamming de audio\n");
 
-        system("./home/pi/Embarcado/activeAudioStreamming");
+       // system("arecord -v -f S16_LE -c 1 -r 192000 -d 0 -Dplug:default | nc 192.168.43.50 7777  2>&1 &");
+    	system("arecord -f S16_LE -c 1 -r 192000 -d 0 -Dplug:default | nc 192.168.43.50 7777  2>&1 &");
     }
     else if(c.getTipoDeComando() == 8) ///comando para desativar streamming de audio
     {
         printf("ExecutorDeComandos::executaComando: Comando para desativar streamming de audio\n");
 
-        system("killall activeAudioStreamming");
+        system("killall activeAudioStream.sh &");
     }
     else if(c.getTipoDeComando() == 9) ///comando para mover a câmera para a esquerda
     {

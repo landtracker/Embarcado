@@ -3,48 +3,40 @@
 
 #include <iostream>
 #include <wiringPi.h>
-#include <wiringPiI2C.h>
-#include <linux/i2c-dev.h>
-#include <sys/ioctl.h>
+#include <softPwm.h>//Para usar em pinos GPIO (sem PWM eletrônico nativo)
 
 using namespace std;
-const unsigned i2cAddress = 0x04;
-
 
 
 
 class Servo{
-    
+
 private:
-    
+
     int servoPin;
     unsigned pwm;
     unsigned range;
     unsigned angulo;
-    unsigned servoArduino;
-    bool flagArduino;
-    
-    void setServoPin(const int _servoIn);//--Seta pino de controle
-    void setAnguloServoArduino(const unsigned _angulo);
+    int flag;
 
-    
-    
-    
+    void setServoPin(const int _servoIn);//--Seta pino de controle
+
+
+
 public:
-    
-    
+
+
     Servo();
     ~Servo();
-    
-    void iniciaServo(const int _servoIn);
-    void iniciaServoArduino(const int _servoIn);
-    
+
+    void iniciaServo(const int _servoIn, const int _flag);
     void setAngulo(const unsigned _angulo);
+    void setFlag(const int _flag);
+    void Direita();
+    void Esquerda();
     void Alinhar();
     void varreduraD();
     void varreduraE();
-    void setFlagArduino(const bool _flag); 
-    const bool getFlag() const;
 };
 
 

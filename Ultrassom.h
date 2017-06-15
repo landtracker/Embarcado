@@ -11,7 +11,12 @@ private:
     int triggerPin;
     int echoPin;
     
-   
+    volatile long startTimeUsec;
+    volatile long endTimeUsec;
+    double distanceMeters;
+    long travelTimeUsec;
+    long now;
+    
     //Funcões Privadas
     void setTriggerPin(const int _triggerIn);//--Seta pino do trigger
     void setEchoPin(const int _echoIn);//--Seta pino do echo
@@ -29,7 +34,7 @@ public:
     
     
     void iniciaUltrassom(const int _triggerIn, const int _echoIn);
-    int calculaDistancia();//--retorna o valor medido pela classe
+    float calculaDistancia(int timeout);//--retorna o valor medido pela classe
     
     
 };
