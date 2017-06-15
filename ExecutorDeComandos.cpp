@@ -9,7 +9,7 @@ ExecutorDeComandos::ExecutorDeComandos()
     if(wiringPiSetup()>=0)
     {
         motorDeTracao.setup(0,2);
-        servoMotorDirecao.iniciaServo(SERVO_01, 0);
+        servoMotorDirecao.iniciaServo(SERVO_01);
     }
 
 }

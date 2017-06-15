@@ -31,6 +31,7 @@
             std::mutex mutexQueue;///mutex para impedir acesso simultâneo à lista, o que pode gerar inconsistência nos dados
             MotorDC motorDeTracao; ///controlador do motor DC de tração
             Servo servoMotorDirecao;///controlador do servomotor da direcao
+	    Servo servoMotorCamera;///Controlador do servomotor da câmera
         public:
             /**
             *Descição: Construtor da classe

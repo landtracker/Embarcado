@@ -150,3 +150,13 @@ unsigned Servo::getAngulo()
 {
     return angulo;
 }
+
+void Servo::Direita()
+{
+    setAngulo(180);
+}
+
+void Servo::Esquerda()
+{
+    setAngulo(0);
+}

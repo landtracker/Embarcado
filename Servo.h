@@ -46,6 +46,8 @@ public:
     void setFlagArduino(const bool _flag); 
     const bool getFlag() const;
     unsigned getAngulo();
+    void Direita();
+    void Esquerda();
 };
 
 
