@@ -36,7 +36,7 @@ int main()
     ///inicia um cliente TCP que enviará os dados de vídeo e áudio para a estação base
     //ClientTCP client(1234, "127.0.0.1");
     
-    thread enviaInformacoesEstacaoBase = sendInformationsToBaseStation();
+    thread enviaInformacoesEstacaoBase (sendInformationsToBaseStation);
 
 
 
