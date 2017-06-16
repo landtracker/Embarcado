@@ -16,7 +16,7 @@ ExecutorDeComandos::ExecutorDeComandos()
     if(wiringPiSetup()>=0)
     {
 		pinMode(SIGPIN_ARD, OUTPUT);
-		digitalWrite(SIGPIN_ARD, LOW);
+		digitalWrite(SIGPIN_ARD, HIGH);
         motorDeTracao.setup(MOTOR_VEL,MOTOR_DIR);
         servoMotorDirecao.iniciaServo(SERVO_01);
 		servoCamera.iniciaServoArduino(1);
@@ -75,7 +75,7 @@ void ExecutorDeComandos::executarComandos()
 				if (VerificaObstaculo())
 				{
 					motorDeTracao.Stop();
-					digitalWrite(SIGPIN_ARD, HIGH);
+					digitalWrite(SIGPIN_ARD, LOW);
 					DesvioObstaculo();
 					executando = false;
 
