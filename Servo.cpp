@@ -56,30 +56,6 @@ void Servo::setAngulo(const unsigned _angulo)
 }
 
 
-void Servo::varreduraD()
-{
-    
-    for(int i = 0; i <= 18; i++)
-    {
-        setAngulo(10*i);
-        delay(150);
-    }
-    
-    
-}
-
-void Servo::varreduraE()
-{
-    
-    for(int i = 18; i >= 0; i--)
-    {
-        setAngulo(10*i);
-        delay(150);
-    }
-    
-    
-    
-}
 
 void Servo::Alinhar()
 {
@@ -149,4 +125,13 @@ const bool Servo:: getFlag() const
 unsigned Servo::getAngulo()
 {
     return angulo;
+}
+
+void Servo::Direita()
+{
+    setAngulo(180);
+}
+void Servo::Esquerda()
+{
+    setAngulo(0);
 }

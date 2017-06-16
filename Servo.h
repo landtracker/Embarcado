@@ -41,11 +41,11 @@ public:
     
     void setAngulo(const unsigned _angulo);
     void Alinhar();
-    void varreduraD();
-    void varreduraE();
     void setFlagArduino(const bool _flag); 
     const bool getFlag() const;
     unsigned getAngulo();
+    void Direita();
+    void Esquerda();
 };
 
 
