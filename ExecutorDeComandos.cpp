@@ -28,7 +28,7 @@ ExecutorDeComandos::ExecutorDeComandos()
     }
 	executando = false;
 
-	if (wiringPiISR(INTERRUPT_A, INT_EDGE_RISING, &InterruptArduino) < 0)
+	if (wiringPiISR(INTERRUPT_A, INT_EDGE_FALLING, &InterruptArduino) < 0)
 	{
 		fprintf(stderr, "Unable to setup ISR: %s\n", strerror(errno));
 		return 1;
@@ -72,10 +72,11 @@ void ExecutorDeComandos::executarComandos()
 			executando = true;
 			while (executando)
 			{
+				digitalWrite(SIGPIN_ARD, LOW);
 				if (VerificaObstaculo())
 				{
 					motorDeTracao.Stop();
-					digitalWrite(SIGPIN_ARD, LOW);
+					digitalWrite(SIGPIN_ARD, HIGH);
 					DesvioObstaculo();
 					executando = false;
 

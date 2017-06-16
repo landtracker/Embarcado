@@ -46,6 +46,10 @@ const unsigned SERVO_01 = 1;//Gpio da Biblioteca wiringiPi
 
 const unsigned SIGPIN_ARD = 10;
 
+//Pino interrupcao
+
+const unsigned INTERRUPT_A = 11;
+
 
 
 
