@@ -8,10 +8,14 @@
 void sendInformationsToBaseStation()
 {
     ClientTCP client(1234, "127.0.0.1");
+    const unsigned i2c = 0x04;
+    int fd = wiringPiI2CSetup(i2c);
     while(true)
     {
+        int reading = wiringPiI2CRead(fd);
+        char* velocity = reading;
         sleep(1);
-        client.sendMessageToServer("123" , 3);///teste cliente enviando dados ao server
+        client.sendMessageToServer("12" , 3);///teste cliente enviando dados ao server
     }
 }
 
@@ -22,6 +26,7 @@ int main()
     int priority = -20;///variável que indica a a prioridade a ser setada para esse processo
     int ret = setpriority(which, processPid, priority);///seto a nova prioridade desse processo para a máxima em sistema unix
     ///Se setpriority retorna 0, então a nova prioridade foi setada
+    
 
 
     ExecutorDeComandos executorDeComandos;
@@ -36,7 +41,7 @@ int main()
     ///inicia um cliente TCP que enviará os dados de vídeo e áudio para a estação base
     //ClientTCP client(1234, "127.0.0.1");
     
-    thread enviaInformacoesEstacaoBase (sendInformationsToBaseStation);
+    thread enviaInformacoesEstacaoBase = sendInformationsToBaseStation();
 
 
 

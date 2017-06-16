@@ -14,6 +14,7 @@
     #include <unistd.h>
     #include"Comando.h"
     #include <wiringPi.h>
+    #include <wiringPiI2C.h>
     #include "Ultrassom.h"
     #include "Servo.h"
     #include "MotorDC.h"
@@ -31,7 +32,6 @@
             std::mutex mutexQueue;///mutex para impedir acesso simultâneo à lista, o que pode gerar inconsistência nos dados
             MotorDC motorDeTracao; ///controlador do motor DC de tração
             Servo servoMotorDirecao;///controlador do servomotor da direcao
-	    Servo servoMotorCamera;///Controlador do servomotor da câmera
         public:
             /**
             *Descição: Construtor da classe
