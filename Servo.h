@@ -8,7 +8,6 @@
 #include <sys/ioctl.h>
 
 using namespace std;
-const unsigned i2cAddress = 0x04;
 
 
 

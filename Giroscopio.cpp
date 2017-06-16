@@ -4,7 +4,7 @@
 Giroscopio::Giroscopio()
 {
     
-    fd = wiringPiI2CSetup (0x68);
+    fd = wiringPiI2CSetup (I2CADDR_GYRO);
     wiringPiI2CWriteReg8 (fd,0x6B,0x00);//disable sleep mode 
     acclX = read_word_2c(0x3B);
     acclY = read_word_2c(0x3D);

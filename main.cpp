@@ -8,14 +8,13 @@
 void sendInformationsToBaseStation()
 {
     ClientTCP client(1234, "127.0.0.1");
-    const unsigned i2c = 0x04;
-    int fd = wiringPiI2CSetup(i2c);
+    int fd = wiringPiI2CSetup(I2CADDR_ARD);;
     while(true)
     {
         int reading = wiringPiI2CRead(fd);
-        char* velocity = reading;
+		char velocity = (char)reading;
         sleep(1);
-        client.sendMessageToServer("12" , 3);///teste cliente enviando dados ao server
+        client.sendMessageToServer(velocity , 2);///teste cliente enviando dados ao server
     }
 }
 

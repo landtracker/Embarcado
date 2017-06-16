@@ -32,6 +32,13 @@
             std::mutex mutexQueue;///mutex para impedir acesso simultâneo à lista, o que pode gerar inconsistência nos dados
             MotorDC motorDeTracao; ///controlador do motor DC de tração
             Servo servoMotorDirecao;///controlador do servomotor da direcao
+			Servo servoCamera;
+			Servo servoDireita;
+			Servo servoEsquerda;
+			bool executando;
+			Ultrassom US_Esquerda;
+			Ultrassom US_Direita;
+			Ultrassom US_Meio;
         public:
             /**
             *Descição: Construtor da classe
@@ -43,6 +50,11 @@
             */
             ~ExecutorDeComandos();
 
+			void InterruptArduino();
+
+			bool VerificaObstaculo();
+
+			int DesvioObstaculo();
             /**
             *Descição: insere um novo comando na lista
             *Argumento: tipo => (Comando) novo comando a ser inserido na lista

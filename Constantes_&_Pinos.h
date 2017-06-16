@@ -14,10 +14,16 @@
  * __________________________________
  */
 
+const unsigned I2CADDR_ARD = 0x04;
+const unsigned I2CADDR_GYRO = 0x68;
 
 //Pinos do Ultrassom
 const int TRIGERPIN_01 = 4;//Gpio da Biblioteca wiringiPi
-const int ECHOPIN_01 = 5; 
+const int ECHOPIN_01 = 5;
+const int TRIGERPIN_02 = 6;//Gpio da Biblioteca wiringiPi
+const int ECHOPIN_02 = 7;
+const int TRIGERPIN_03 = 8;//Gpio da Biblioteca wiringiPi
+const int ECHOPIN_03 = 9;
 
 //PWM servo Motor
 /*
@@ -35,7 +41,11 @@ const unsigned PWMRANGE = 2000;
 //Pinos Servo
 
 const unsigned SERVO_01 = 1;//Gpio da Biblioteca wiringiPi
-const unsigned SERVO_02 = 7;//Gpio da Biblioteca wiringiPi
+
+//Pino Controle Delay Arduino
+
+const unsigned SIGPIN_ARD = 10;
+
 
 
 

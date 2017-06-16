@@ -1,5 +1,12 @@
 #include"ExecutorDeComandos.h"
 
+
+ExecutorDeComandos::InterruptArduino()
+{
+	executando = false;
+	motorDeTracao.Stop();
+}
+
 ExecutorDeComandos::ExecutorDeComandos()
 {
     while (!listaDeComandos.empty()) ///para garantir começar com a lista vazia
@@ -8,9 +15,24 @@ ExecutorDeComandos::ExecutorDeComandos()
     }
     if(wiringPiSetup()>=0)
     {
-        motorDeTracao.setup(0,2);
-        servoMotorDirecao.iniciaServo(SERVO_01, 0);
+		pinMode(SIGPIN_ARD, OUTPUT);
+		digitalWrite(SIGPIN_ARD, LOW);
+        motorDeTracao.setup(MOTOR_VEL,MOTOR_DIR);
+        servoMotorDirecao.iniciaServo(SERVO_01);
+		servoCamera.iniciaServoArduino(1);
+		servoDireita.iniciaServoArduino(2);
+		servoEsquerda.iniciaServoArduino(3);
+		US_Direita.iniciaUltrassom(TRIGERPIN_01, ECHOPIN_01);
+		US_Esquerda.iniciaUltrassom(TRIGERPIN_02, ECHOPIN_02);
+		US_Meio.iniciaUltrassom(TRIGERPIN_03, ECHOPIN_03);
     }
+	executando = false;
+
+	if (wiringPiISR(INTERRUPT_A, INT_EDGE_RISING, &InterruptArduino) < 0)
+	{
+		fprintf(stderr, "Unable to setup ISR: %s\n", strerror(errno));
+		return 1;
+	}
 
 }
 ///------------------------------------------------------------------------------------------------------
@@ -32,26 +54,38 @@ void ExecutorDeComandos::insereComandoNaLista(Comando comando)
 void ExecutorDeComandos::executarComandos()
 {
 
-        while(true)
-        {
-            ///verifica se existe algum comando na lista para ser executado
+	while (true)
+	{
+		///verifica se existe algum comando na lista para ser executado
 
-            mutexQueue.lock();
+		mutexQueue.lock();
 
-                if(!listaDeComandos.empty())
-                {
-                    Comando c;
+		if (!listaDeComandos.empty())
+		{
+			Comando c;
 
-                    c = listaDeComandos.front();
-                    listaDeComandos.pop(); ///retira o comando executado da lista
-                    mutexQueue.unlock();
-                    ///manda executar o comando "c"...
-                    executaComando(c);
+			c = listaDeComandos.front();
+			listaDeComandos.pop(); ///retira o comando executado da lista
+			mutexQueue.unlock();
+			///manda executar o comando "c"...
+			executaComando(c);
+			executando = true;
+			while (executando)
+			{
+				if (VerificaObstaculo())
+				{
+					motorDeTracao.Stop();
+					digitalWrite(SIGPIN_ARD, HIGH);
+					DesvioObstaculo();
+					executando = false;
 
-                }
-                //printf("buscando Comandos Para executor...");
-            mutexQueue.unlock();
-        }
+				}
+			}
+
+		}
+		//printf("buscando Comandos Para executor...");
+		mutexQueue.unlock();
+	}
 
 }
 ///------------------------------------------------------------------------------------------------------
@@ -61,6 +95,19 @@ thread ExecutorDeComandos::getExecutorDeComandosThread()
     return thread([=] { executarComandos(); });
 }
 ///------------------------------------------------------------------------------------------------------
+
+bool ExecutorDeComandos::VerificaObstaculo()
+{
+	if (US_Esquerda.calculaDistancia(1000) < 50 || US_Direita.calculaDistancia(1000) < 50 || US_Meio.calculaDistancia(1000) > 50)
+		return true
+	else
+		return false;
+}
+
+int ExecutorDeComandos::DesvioObstaculo()
+{
+
+}
 
 void ExecutorDeComandos::executaComando(Comando c)
 {
