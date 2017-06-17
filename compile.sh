@@ -1,1 +1,1 @@
-g++ -W -o landTrackerEmbarcado ClientTCP.cpp Comando.cpp Constantes_\&_Pinos.h defines.h ExecutorDeComandos.cpp main.cpp MotorDC.cpp ServerTCP.cpp Servo.cpp Ultrassom.cpp -lwiringPi -std=c++11 -lpthread
+g++ -W -o landTrackerEmbarcado ClientTCP.cpp Comando.cpp Constantes_\&_Pinos.h defines.h ExecutorDeComandos.cpp main.cpp MotorDC.cpp ServerTCP.cpp Servo.cpp Ultrassom.cpp AI.cpp Giroscopio.cpp -lwiringPi -std=c++11 -lpthread
