@@ -14,7 +14,7 @@ void sendInformationsToBaseStation()
         int reading = wiringPiI2CRead(fd);
 		char velocity = (char)reading;
         sleep(1);
-        client.sendMessageToServer(velocity , 2);///teste cliente enviando dados ao server
+        client.sendMessageToServer("1" , 2);///teste cliente enviando dados ao server
     }
 }
 
@@ -42,7 +42,7 @@ int main()
     ///inicia um cliente TCP que enviará os dados de vídeo e áudio para a estação base
     //ClientTCP client(1234, "127.0.0.1");
     
-    thread enviaInformacoesEstacaoBase = sendInformationsToBaseStation();
+    //thread enviaInformacoesEstacaoBase (sendInformationsToBaseStation());
 
 
 

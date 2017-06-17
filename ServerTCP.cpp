@@ -28,7 +28,7 @@ ServerTCP::ServerTCP()
 }
 ///------------------------------------------------------------------------------------------------------
 
-ServerTCP::ServerTCP(int port, ExecutorDeComandos *exec_mov, ExecutorDeComandos *exec_av,)
+ServerTCP::ServerTCP(int port, ExecutorDeComandos *exec_mov, ExecutorDeComandos *exec_av);
 {
     ptrExecutorDeComandos_Mov = exec_mov;
 	ptrExecutorDeComandos_AV = exec_av;

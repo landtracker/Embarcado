@@ -29,7 +29,6 @@ ExecutorDeComandos::ExecutorDeComandos()
 	if (wiringPiISR(INTERRUPT_A, INT_EDGE_FALLING, &InterruptArduino) < 0)
 	{
 		fprintf(stderr, "Unable to setup ISR: %s\n", strerror(errno));
-		return 1;
 	}
 
 }
@@ -196,15 +195,15 @@ void ExecutorDeComandos::executaComando(Comando c)
     {
         printf("ExecutorDeComandos::executaComando: Comando para mover a câmera para a esquerda\n");
         printf(" descritor: %d\n\n", (int)c.getDescritorDoComando());
-        unsigned anguloAtual = servoMotorCamera.getAngulo();
-        servoMotorCamera.setAngulo(anguloAtual + (unsigned)c.getDescritorDoComando());
+        unsigned anguloAtual = servoCamera.getAngulo();
+        servoCamera.setAngulo(anguloAtual + (unsigned)c.getDescritorDoComando());
     }
     else if(c.getTipoDeComando() == 10) ///comando para mover a câmera para a direita
     {
         printf("ExecutorDeComandos::executaComando: Comando para mover a câmera para a direita\n");
         printf(" descritor: %d\n\n", (int)c.getDescritorDoComando());
-        unsigned anguloAtual = servoMotorCamera.getAngulo();
-        servoMotorCamera.setAngulo(anguloAtual - (unsigned)c.getDescritorDoComando());
+        unsigned anguloAtual = servoCamera.getAngulo();
+        servoCamera.setAngulo(anguloAtual - (unsigned)c.getDescritorDoComando());
     }
     /**
     .

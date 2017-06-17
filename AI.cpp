@@ -21,8 +21,9 @@ AI::~AI()
 
 bool AI::VerificaObstaculo()
 {
-	if (US_Esquerda.calculaDistancia(1000) < 50 || US_Direita.calculaDistancia(1000) < 50 || US_Meio.calculaDistancia(1000) > 50)
-		return true
+	int detect_dist = 100;
+	if (US_Esquerda.calculaDistancia(1000) < detect_dist || US_Direita.calculaDistancia(1000) < detect_dist || US_Meio.calculaDistancia(1000) > detect_dist)
+		return true;
 	else
 		return false;
 }
