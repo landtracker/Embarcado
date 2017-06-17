@@ -33,7 +33,8 @@
             string clienteIp; //ip do cliente
             int clientePort; //porta da aplicação no cliente
 
-            ExecutorDeComandos* ptrExecutorDeComandos;
+            ExecutorDeComandos* ptrExecutorDeComandos_Mov;
+			ExecutorDeComandos* ptrExecutorDeComandos_AV;
 
     public:
         /**

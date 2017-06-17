@@ -28,9 +28,10 @@ ServerTCP::ServerTCP()
 }
 ///------------------------------------------------------------------------------------------------------
 
-ServerTCP::ServerTCP(int port, ExecutorDeComandos *exec)
+ServerTCP::ServerTCP(int port, ExecutorDeComandos *exec_mov, ExecutorDeComandos *exec_av,)
 {
-    ptrExecutorDeComandos = exec;
+    ptrExecutorDeComandos_Mov = exec_mov;
+	ptrExecutorDeComandos_AV = exec_av;
     portNumber = port;
     socketfd = socket(AF_INET, SOCK_STREAM, 0); //obtém o socket do sistema
     ///AF_INET = socket que aceita endereços ipv4
@@ -106,7 +107,11 @@ void ServerTCP::acceptConections()
                     cout<<(int)resposta[i+1]<<endl;
                     c.setTipoDeComando(resposta[i]);
                     c.setDescritorDoComando(resposta[i+1]);
-                    ptrExecutorDeComandos->insereComandoNaLista(c);
+
+					if ((int)resposta[i] > 4) //Se o comando for maior que 4, corresponde a Audio/Video
+						ptrExecutorDeComandos_AV->insereComandoNaLista(c);
+					else
+						ptrExecutorDeComandos_Mov->insereComandoNaLista(c);
                     i = i+2;
                 }
 

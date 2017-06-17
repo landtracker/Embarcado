@@ -28,11 +28,13 @@ int main()
     
 
 
-    ExecutorDeComandos executorDeComandos;
+    ExecutorDeComandos executorDeComandos_Mov;
+	ExecutorDeComandos executorDeComandos_AV;
 
-    thread threadExecutorDeComandos = executorDeComandos.getExecutorDeComandosThread();
+    thread threadExecutorDeComandos_Mov = executorDeComandos_Mov.getExecutorDeComandosThread();
+	thread threadExecutorDeComandos_AV = executorDeComandos_AV.getExecutorDeComandosThread();
     ///inicia o server do raspberry para receber os comandos da estação base
-    ServerTCP server(1234, &executorDeComandos);
+    ServerTCP server(1234, &executorDeComandos_Mov, &executorDeComandos_AV);
     ///captura a thread do server
     thread serverThread = server.getServerThread();
 
