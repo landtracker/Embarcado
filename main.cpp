@@ -34,7 +34,7 @@ int main()
     int priority = -20;///variável que indica a a prioridade a ser setada para esse processo
     int ret = setpriority(which, processPid, priority);///seto a nova prioridade desse processo para a máxima em sistema unix
     ///Se setpriority retorna 0, então a nova prioridade foi setada
-	if (wiringPiISR(INTERRUPT_A, INT_EDGE_FALLING, &InterruptArduino) < 0)
+	if (wiringPiISR(INTERRUPT_A, INT_EDGE_RISING, &InterruptArduino) < 0)
 	{
 		fprintf(stderr, "Unable to setup ISR: %s\n", strerror(errno));
 	}
