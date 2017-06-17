@@ -23,7 +23,7 @@ void sendInformationsToBaseStation()
 }
 
 void InterruptArduino() {
-	executorDeComandos_Mov.InterruptArduino;
+	executorDeComandos_Mov.InterruptArduino();
 
 }
 
