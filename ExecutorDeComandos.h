@@ -26,6 +26,7 @@
     *Descricao: Classe que analisa e executa os comandos recebidos pelo server
     *Versao: 1.0
     */
+
     class ExecutorDeComandos
     {
         private:
