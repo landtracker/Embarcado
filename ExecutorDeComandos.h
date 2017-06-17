@@ -18,6 +18,7 @@
     #include "Ultrassom.h"
     #include "Servo.h"
     #include "MotorDC.h"
+	#include "AI.h"
     #include"Constantes_&_Pinos.h"
     using namespace std;
 
@@ -36,9 +37,8 @@
 			Servo servoDireita;
 			Servo servoEsquerda;
 			bool executando;
-			Ultrassom US_Esquerda;
-			Ultrassom US_Direita;
-			Ultrassom US_Meio;
+			AI brain;
+			
         public:
             /**
             *Descição: Construtor da classe
@@ -52,9 +52,7 @@
 
 			void InterruptArduino();
 
-			bool VerificaObstaculo();
 
-			int DesvioObstaculo();
             /**
             *Descição: insere um novo comando na lista
             *Argumento: tipo => (Comando) novo comando a ser inserido na lista

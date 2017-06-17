@@ -15,6 +15,7 @@ ExecutorDeComandos::ExecutorDeComandos()
     }
     if(wiringPiSetup()>=0)
     {
+		brain = new AI();
 		pinMode(SIGPIN_ARD, OUTPUT);
 		digitalWrite(SIGPIN_ARD, HIGH);
         motorDeTracao.setup(MOTOR_VEL,MOTOR_DIR);
@@ -22,9 +23,7 @@ ExecutorDeComandos::ExecutorDeComandos()
 		servoCamera.iniciaServoArduino(1);
 		servoDireita.iniciaServoArduino(2);
 		servoEsquerda.iniciaServoArduino(3);
-		US_Direita.iniciaUltrassom(TRIGERPIN_01, ECHOPIN_01);
-		US_Esquerda.iniciaUltrassom(TRIGERPIN_02, ECHOPIN_02);
-		US_Meio.iniciaUltrassom(TRIGERPIN_03, ECHOPIN_03);
+
     }
 	executando = false;
 
@@ -73,11 +72,11 @@ void ExecutorDeComandos::executarComandos()
 			while (executando)
 			{
 				digitalWrite(SIGPIN_ARD, LOW);
-				if (VerificaObstaculo())
+				if (brain.VerificaObstaculo())
 				{
 					motorDeTracao.Stop();
 					digitalWrite(SIGPIN_ARD, HIGH);
-					DesvioObstaculo();
+					brain.DesvioObstaculo();
 					executando = false;
 
 				}
@@ -97,18 +96,8 @@ thread ExecutorDeComandos::getExecutorDeComandosThread()
 }
 ///------------------------------------------------------------------------------------------------------
 
-bool ExecutorDeComandos::VerificaObstaculo()
-{
-	if (US_Esquerda.calculaDistancia(1000) < 50 || US_Direita.calculaDistancia(1000) < 50 || US_Meio.calculaDistancia(1000) > 50)
-		return true
-	else
-		return false;
-}
 
-int ExecutorDeComandos::DesvioObstaculo()
-{
 
-}
 
 void ExecutorDeComandos::executaComando(Comando c)
 {
