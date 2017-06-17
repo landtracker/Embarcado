@@ -5,6 +5,10 @@
 #include <sys/resource.h>
 #include<string>
 
+
+ExecutorDeComandos executorDeComandos_Mov;
+ExecutorDeComandos executorDeComandos_AV;
+
 void sendInformationsToBaseStation()
 {
     ClientTCP client(1234, "127.0.0.1");
@@ -18,8 +22,8 @@ void sendInformationsToBaseStation()
     }
 }
 
-void InterruptArduino(ExecutorDeComandos* exec) {
-	exec->InterruptArduino();
+void InterruptArduino() {
+	executorDeComandos_Mov.InterruptArduino;
 
 }
 
@@ -36,8 +40,7 @@ int main()
 	}
 
 
-    ExecutorDeComandos executorDeComandos_Mov;
-	ExecutorDeComandos executorDeComandos_AV;
+
 
     thread threadExecutorDeComandos_Mov = executorDeComandos_Mov.getExecutorDeComandosThread();
 	thread threadExecutorDeComandos_AV = executorDeComandos_AV.getExecutorDeComandosThread();
