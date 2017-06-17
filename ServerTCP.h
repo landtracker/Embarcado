@@ -47,7 +47,7 @@
         *Argumento: port => (int) indica a porta na qual o servidor ficará escutando
         *Argumento: port => (ExecutorDeComandos*) ponteiro com a referência do executor de comandos para poder adicionar comandos à sua lista
         */
-        ServerTCP(int port, ExecutorDeComandos *exec);
+        ServerTCP(int port, ExecutorDeComandos *exec_mov, ExecutorDeComandos *exec_av);
 
         /**
         *Descição: Destrutor da classe

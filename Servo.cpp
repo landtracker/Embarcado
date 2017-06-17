@@ -84,7 +84,7 @@ void Servo::iniciaServoArduino(const int _servoIn)
 void Servo::setAnguloServoArduino(const unsigned _angulo)
 {
     unsigned fd = 0; 
-    fd = wiringPiI2CSetup(I2CADDR);
+    fd = wiringPiI2CSetup(I2CADDR_ARD);
     
     if( servoArduino > 0 & servoArduino < 4)
     {

@@ -1,7 +1,7 @@
 #include"ExecutorDeComandos.h"
 
 
-ExecutorDeComandos::InterruptArduino()
+void ExecutorDeComandos::InterruptArduino()
 {
 	executando = false;
 	motorDeTracao.Stop();
@@ -15,7 +15,6 @@ ExecutorDeComandos::ExecutorDeComandos()
     }
     if(wiringPiSetup()>=0)
     {
-		brain = new AI();
 		pinMode(SIGPIN_ARD, OUTPUT);
 		digitalWrite(SIGPIN_ARD, HIGH);
         motorDeTracao.setup(MOTOR_VEL,MOTOR_DIR);
