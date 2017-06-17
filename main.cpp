@@ -68,6 +68,7 @@ int main()
     printf("\n depois da thread...");///teste*/
 
 
-    threadExecutorDeComandos.join();///espero a thread do executor de comandos terminar
+    threadExecutorDeComandos_Mov.join();///espero a thread do executor de comandos terminar
+	threadExecutorDeComandos_AV.join();
     serverThread.join();///fica esperando a thread do server finalizar para encerrar o software
 }
