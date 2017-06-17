@@ -1,4 +1,5 @@
 #include "Giroscopio.h"
+#include "Constantes_&_Pinos.h"
 
 
 Giroscopio::Giroscopio()
