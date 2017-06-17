@@ -1,7 +1,8 @@
 #include"ExecutorDeComandos.h"
 
 
-void ExecutorDeComandos::InterruptArduino()
+
+static void ExecutorDeComandos::InterruptArduino()
 {
 	executando = false;
 	motorDeTracao.Stop();
@@ -28,7 +29,7 @@ ExecutorDeComandos::ExecutorDeComandos()
 
 	if (wiringPiISR(INTERRUPT_A, INT_EDGE_FALLING, &InterruptArduino) < 0)
 	{
-		fprintf(stderr, "Unable to setup ISR: %s\n", strerror(errno));
+		cout << "Unable to setup ISR: \n" << endl;
 	}
 
 }
