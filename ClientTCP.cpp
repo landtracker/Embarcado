@@ -41,11 +41,11 @@ ClientTCP::ClientTCP(int port, string ip)
     servAddr.sin_port = htons(serverPortNumber);
 
     ///tenta efetivar a conexão com o server
-    if (connect(sockfd,(struct sockaddr *) &servAddr,sizeof(servAddr)) < 0)
+    while (connect(sockfd,(struct sockaddr *) &servAddr,sizeof(servAddr)) < 0)
     {
-        printf("Erro ao conectar com o servidor");
+        //printf("Erro ao conectar com o servidor");
     }
-    else
+    //else
     {
         printf("Conexão estabelecida com o servidor");
     }
