@@ -32,7 +32,7 @@ void MotorDC::Frente(const unsigned _distancia)
     
     unsigned fd = 0; 
     fd = wiringPiI2CSetup(I2CADDR_ARD);    
-    wiringPiI2CWriteReg8(fd, 1,_distancia);   
+    wiringPiI2CWriteReg8(fd, 2,_distancia);   
     
     
     digitalWrite(velPin, HIGH);
@@ -43,7 +43,7 @@ void MotorDC::Tras(const unsigned _distancia)
 {
     unsigned fd = 0; 
     fd = wiringPiI2CSetup(I2CADDR_ARD);    
-    wiringPiI2CWriteReg8(fd, 1,_distancia);   
+    wiringPiI2CWriteReg8(fd, 2,_distancia);   
     
     digitalWrite(velPin, HIGH);
     digitalWrite(dirPin, LOW);
