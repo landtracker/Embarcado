@@ -14,6 +14,7 @@
  * __________________________________
  */
 
+
 const unsigned I2CADDR_ARD = 0x04;
 const unsigned I2CADDR_GYRO = 0x68;
 
@@ -66,7 +67,8 @@ const unsigned MOTOR_DIR = 2; //Pino de direcao do motor DC
 //--CONSTANTES DE SISTEMA
 
  // Velocidade do som 340,29 m/s -&gt; 34029 cm/s
- #define   VELOCIDADE_DO_SOM  34029
+#define VELOCIDADE_DO_SOM  34029
+#define PI 3.14159265
 
 
 

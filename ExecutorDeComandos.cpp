@@ -23,6 +23,7 @@ ExecutorDeComandos::ExecutorDeComandos()
 		servoCamera.iniciaServoArduino(1);
 		servoDireita.iniciaServoArduino(2);
 		servoEsquerda.iniciaServoArduino(3);
+		brain.setup(&servoCamera, &servoDireita, &servoEsquerda);
 
     }
 	executando = false;
