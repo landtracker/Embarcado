@@ -1,4 +1,4 @@
-#ifndef PINAGEM_H
+﻿#ifndef PINAGEM_H
 #define PINAGEM_H
 
 /*------------------------------------
@@ -19,12 +19,12 @@ const unsigned I2CADDR_ARD = 0x04;
 const unsigned I2CADDR_GYRO = 0x68;
 
 //Pinos do Ultrassom
-const int TRIGERPIN_01 = 4;//Gpio da Biblioteca wiringiPi
-const int ECHOPIN_01 = 5;
-const int TRIGERPIN_02 = 6;//Gpio da Biblioteca wiringiPi
-const int ECHOPIN_02 = 7;
-const int TRIGERPIN_03 = 8;//Gpio da Biblioteca wiringiPi
-const int ECHOPIN_03 = 9;
+const int TRIGERPIN_01 = 4;//Gpio da Biblioteca wiringiPi - 16 fisico
+const int ECHOPIN_01 = 5; //18 fisico
+const int TRIGERPIN_02 = 21;//Gpio da Biblioteca wiringiPi - 29 fisico
+const int ECHOPIN_02 = 22; // 31 fisico
+const int TRIGERPIN_03 = 23;//Gpio da Biblioteca wiringiPi - 33
+const int ECHOPIN_03 = 24; // 35
 
 //PWM servo Motor
 /*
@@ -45,11 +45,11 @@ const unsigned SERVO_01 = 1;//Gpio da Biblioteca wiringiPi
 
 //Pino Controle Delay Arduino
 
-const unsigned SIGPIN_ARD = 10;
+const unsigned SIGPIN_ARD = 6; // 22 fisico
 
 //Pino interrupcao
 
-const unsigned INTERRUPT_A = 11;
+const unsigned INTERRUPT_A = 26; // 32 fisico
 
 
 
