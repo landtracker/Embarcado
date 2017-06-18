@@ -3,6 +3,8 @@
 
 #include <iostream>
 #include <wiringPi.h>
+#include <wiringPiI2C.h>
+
 
 using namespace std;
 
@@ -15,18 +17,15 @@ private:
 	unsigned dirPin;
 
 
-
-
 public:
 
     MotorDC();
     MotorDC(unsigned vel, unsigned dir);
     ~MotorDC();
 
-    void Frente(const unsigned _duracao);
-    void Tras(const unsigned _duracao);
+    void Frente(const unsigned _distancia);
+    void Tras(const unsigned _distancia);
 	void Stop();
-
     void setup(unsigned vel, unsigned dir);
 
 

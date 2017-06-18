@@ -88,12 +88,12 @@ void Servo::setAnguloServoArduino(const unsigned _angulo)
     
     if( servoArduino > 0 & servoArduino < 4)
     {
-        wiringPiI2CWrite(fd, servoArduino );
+        wiringPiI2CWriteReg8(fd, 0, servoArduino );
         delay(30);
         
         if(_angulo <=180)
         {
-            wiringPiI2CWrite(fd, _angulo);   
+            wiringPiI2CWriteReg8(fd, 1,_angulo);   
             
         }
         

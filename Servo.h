@@ -21,8 +21,7 @@ private:
     unsigned range;
     unsigned angulo;
     unsigned servoArduino;
-    bool flagArduino;
-    
+    bool flagArduino;    
     void setServoPin(const int _servoIn);//--Seta pino de controle
     void setAnguloServoArduino(const unsigned _angulo);
 
