@@ -42,7 +42,7 @@ void Servo::setAngulo(const unsigned _angulo)
     
     angulo = _angulo;
     
-    if(!getFlag())
+    if(!flagArduino)
     {
         pwmWrite(servoPin, ((_angulo/1.8) + 100));
     }
@@ -91,7 +91,7 @@ void Servo::setAnguloServoArduino(const unsigned _angulo)
         wiringPiI2CWrite(fd, servoArduino );
         delay(30);
         
-        if(_angulo >=0 & _angulo <=180)
+        if(_angulo <=180)
         {
             wiringPiI2CWrite(fd, _angulo);   
             
@@ -117,10 +117,7 @@ void Servo::setFlagArduino(const bool _flag)
     flagArduino = _flag;
 }
 
-const bool Servo:: getFlag() const
-{
-    return flagArduino;
-}
+
 
 unsigned Servo::getAngulo()
 {

@@ -5,30 +5,33 @@
 #include <iostream>
 #include <wiringPi.h>
 
+const int detect_dist = 100;
+
+
 using namespace std;
 
 
 class AI {
-
+    
 private:
-
-	Ultrassom US_Esquerda;
-	Ultrassom US_Direita;
-	Ultrassom US_Meio;
-	Servo *servoCamera;
-	Servo *servoDireita;
-	Servo *servoEsquerda;
-
+    
+    Ultrassom US_Esquerda;
+    Ultrassom US_Direita;
+    Ultrassom US_Meio;
+    Servo *servoCamera;
+    Servo *servoDireita;
+    Servo *servoEsquerda;
+    
 public:
-
-	AI();
-	~AI();
-	void setup(Servo *servoC, Servo *servoD, Servo *servoE);
-	bool VerificaObstaculo();
-
-	int DesvioObstaculo();
-
-
+    
+    AI();
+    ~AI();
+    void setup(Servo *servoC, Servo *servoD, Servo *servoE);
+    bool VerificaObstaculo();
+    
+    int DesvioObstaculo();
+    
+    
 };
 
 
