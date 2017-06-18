@@ -19,7 +19,7 @@ private:
     
     int fd;
     int acclX, acclY, acclZ;
-    double acclX_scaled, acclY_scaled, acclZ_scaled;
+    double acclX_scaled, acclY_scaled, acclZ_scaled, temp, temperatura;
     float eixoX, eixoY;
     
     
@@ -32,9 +32,10 @@ public:
     void set_y_rotation(const double x, const double y, const double z);    
     void set_x_rotation(const double x, const double y, const double z);  
     void readEixos();
-    
-    const float get_y_rotation();    
-    const float get_x_rotation();  
+    void  setTemp(const double temp);
+    float getTemp();
+    float get_y_rotation();    
+    float get_x_rotation();  
 };
 
 #endif
