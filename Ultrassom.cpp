@@ -5,7 +5,7 @@ Ultrassom::Ultrassom()
 {
     triggerPin = -1;
     echoPin = -1;
-   
+    
 }
 
 
@@ -35,9 +35,8 @@ void Ultrassom::iniciaUltrassom(const int _triggerIn, const int _echoIn)
 
 int Ultrassom::calculaDistancia(){//--Retorna a distância medida
     
-    int distancia = -1;
-    long unsigned startTime = 0;
-    long unsigned travelTime = 0;
+    
+    
     
     digitalWrite(triggerPin, LOW);
     delayMicroseconds(5);
@@ -47,26 +46,31 @@ int Ultrassom::calculaDistancia(){//--Retorna a distância medida
     
     digitalWrite(triggerPin, LOW);
     
-    //Esperando o retorno do som
-    while(digitalRead(echoPin) == LOW){
-        
-        //Esperando o retorno do som
-        startTime = micros();
-    }
-    while(digitalRead(echoPin) == HIGH)
-    {
-        travelTime = micros() - startTime;
-        
-        //Get distance in cm
-        distancia = ((travelTime/2) / 29.1);
-        //distancia = ((100*(travelTime/1000000)*330) /2);
-    }
+    now=micros();
     
+    while (digitalRead(echoPin) == LOW && micros()-now<timeout)
+    {
+        
+    }
+    retornoEcho();
+    
+    travelTime = endTime - startTime;
+    distancia = 100*((travelTime/1000000.0)*VELOCIDADE_DO_SOM)/2;  
     
     
     //Distancia em cm   
     return distancia;
 }
+
+
+
+ void Ultrassom::retornoEcho()
+{
+    startTime = micros();
+    while ( digitalRead(echoPin) == HIGH );
+    endTime = micros();
+}
+
 
 void Ultrassom::setTriggerPin(const int _triggerIn){
     triggerPin = _triggerIn;

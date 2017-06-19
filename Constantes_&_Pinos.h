@@ -67,7 +67,7 @@ const unsigned MOTOR_DIR = 2; //Pino de direcao do motor DC
 //--CONSTANTES DE SISTEMA
 
  // Velocidade do som 340,29 m/s -&gt; 34029 cm/s
-#define VELOCIDADE_DO_SOM  34029
+#define VELOCIDADE_DO_SOM  340.29
 #define PI 3.14159265
 
 
