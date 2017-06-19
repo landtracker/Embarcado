@@ -6,6 +6,8 @@ void ExecutorDeComandos::InterruptArduino()
 {
 	executando = false;
 	motorDeTracao.Stop();
+	digitalWrite(SIGPIN_ARD, HIGH);
+	printf("interrupt Arduino\n");
 }
 
 ExecutorDeComandos::ExecutorDeComandos()
@@ -59,16 +61,20 @@ void ExecutorDeComandos::executarComandos()
 		if (!listaDeComandos.empty())
 		{
 			Comando c;
-
+		//	Ultrassom US_Direita;
+		//	US_Direita.iniciaUltrassom(TRIGERPIN_01, ECHOPIN_01);
 			c = listaDeComandos.front();
 			listaDeComandos.pop(); ///retira o comando executado da lista
 			mutexQueue.unlock();
 			///manda executar o comando "c"...
 			executaComando(c);
 			executando = true;
+			digitalWrite(SIGPIN_ARD, LOW);
+
 			while (executando)
 			{
-				digitalWrite(SIGPIN_ARD, LOW);
+
+				// cout<<US_Direita.calculaDistancia()<<endl;
 				if (brain.VerificaObstaculo())
 				{
 					motorDeTracao.Stop();

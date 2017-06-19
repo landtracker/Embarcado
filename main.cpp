@@ -11,14 +11,15 @@ ExecutorDeComandos executorDeComandos_AV;
 
 void sendInformationsToBaseStation()
 {
-    ClientTCP client(1234, "127.0.0.1");
+   
+ ClientTCP client(2222, "192.168.25.9");
     int fd = wiringPiI2CSetup(I2CADDR_ARD);;
     while(true)
     {
         int reading = wiringPiI2CRead(fd);
 		char velocity = (char)reading;
         sleep(1);
-        client.sendMessageToServer("1" , 2);///teste cliente enviando dados ao server
+        client.sendMessageToServer("1234" , 5);///teste cliente enviando dados ao server
     }
 }
 

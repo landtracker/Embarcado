@@ -5,6 +5,7 @@ Ultrassom::Ultrassom()
 {
     triggerPin = -1;
     echoPin = -1;
+   
 }
 
 
@@ -19,7 +20,7 @@ Ultrassom::~Ultrassom()
 
 void Ultrassom::iniciaUltrassom(const int _triggerIn, const int _echoIn)
 {
-    
+    wiringPiSetup(); 
     setTriggerPin(_triggerIn);
     setEchoPin(_echoIn);
     

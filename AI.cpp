@@ -6,8 +6,8 @@
 AI::AI()
 {
     US_Direita.iniciaUltrassom(TRIGERPIN_01, ECHOPIN_01);
-    US_Esquerda.iniciaUltrassom(TRIGERPIN_02, ECHOPIN_02);
-    US_Meio.iniciaUltrassom(TRIGERPIN_03, ECHOPIN_03);
+    //US_Esquerda.iniciaUltrassom(TRIGERPIN_02, ECHOPIN_02);
+    //US_Meio.iniciaUltrassom(TRIGERPIN_03, ECHOPIN_03);
     
 }
 
@@ -28,14 +28,29 @@ void AI::setup(Servo *servoC, Servo *servoD, Servo *servoE)
 
 bool AI::VerificaObstaculo()
 {
-    if (US_Esquerda.calculaDistancia() < detect_dist || US_Direita.calculaDistancia() < detect_dist || US_Meio.calculaDistancia() > detect_dist)
-        return true;
+    /*printf("AI1!\n");
+    cout<<US_Esquerda.calculaDistancia()<<endl<<US_Direita.calculaDistancia()<<endl<<US_Meio.calculaDistancia()<<endl;
+    if (US_Esquerda.calculaDistancia() < detect_dist || US_Direita.calculaDistancia() < detect_dist || US_Meio.calculaDistancia() < detect_dist)
+    {
+	printf("AI!\n");
+	cout<<US_Esquerda.calculaDistancia()<<endl<<US_Direita.calculaDistancia()<<endl<<US_Meio.calculaDistancia()<<endl;
+	 return true;
+    }
+    else
+        return false;
+    */
+    if (US_Direita.calculaDistancia() < detect_dist)
+    {
+	cout<<endl<<US_Direita.calculaDistancia()<<endl;
+	 return true;
+    }
     else
         return false;
 }
 
 int AI::DesvioObstaculo()
 {
+    /*
     int distD, distE, barreiraStart_D, barreiraEnd_D, barreiraStart_E, barreiraEnd_E;
     distD = distE = barreiraStart_D = barreiraEnd_D = barreiraStart_E = barreiraEnd_E = 0;
     int BrechaE, BrechaD, anguloStart_D, anguloEnd_D, anguloStart_E, anguloEnd_E;
@@ -88,7 +103,7 @@ int AI::DesvioObstaculo()
         BrechaD = sqrt(pow(barreiraStart_D, 2) + pow(barreiraEnd_D, 2) + 2 * barreiraStart_D*barreiraEnd_D*cos(abs(anguloStart_D - anguloEnd_D)*PI / 180));
         BrechaE = sqrt(pow(barreiraStart_E, 2) + pow(barreiraEnd_E, 2) + 2 * barreiraStart_E*barreiraEnd_E*cos(abs(anguloStart_E - anguloEnd_E)*PI / 180));
         
-    }
+    }*/
 }
 
 
