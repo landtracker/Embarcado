@@ -63,13 +63,15 @@ void Servo::Alinhar()
     
 }
 
-void Servo::iniciaServoArduino(const int _servoIn)
+void Servo::iniciaServoArduino(const int _servoIn, unsigned _fd)
 {
-    
+    //cout << "AKI" << endl;
+    fd = _fd;
     if( _servoIn >0 &  _servoIn <4)
     {
         servoArduino = _servoIn;
         setFlagArduino(true);
+        //Alinhar();
     }
     
     else
@@ -83,31 +85,7 @@ void Servo::iniciaServoArduino(const int _servoIn)
 
 void Servo::setAnguloServoArduino(const unsigned _angulo)
 {
-    unsigned fd = 0; 
-    fd = wiringPiI2CSetup(I2CADDR_ARD);
-    
-    if( servoArduino > 0 & servoArduino < 4)
-    {
-        wiringPiI2CWriteReg8(fd, 0, servoArduino );
-        delay(30);
-        
-        if(_angulo <=180)
-        {
-            wiringPiI2CWriteReg8(fd, 1,_angulo);   
-            
-        }
-        
-        else
-        {
-            cout<<"Angulo Invalido no Servo Arduino!"<<endl;
-        }
-        
-    }
-    
-    else
-    {
-        cout<<"Servo Arduino Invalido"<<endl;   
-    }        
+    wiringPiI2CWriteReg8(fd, servoArduino, _angulo);
     
 }
 

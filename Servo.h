@@ -10,8 +10,6 @@
 using namespace std;
 
 
-
-
 class Servo{
     
 private:
@@ -24,7 +22,8 @@ private:
     bool flagArduino;    
     void setServoPin(const int _servoIn);//--Seta pino de controle
     void setAnguloServoArduino(const unsigned _angulo);
-
+    unsigned fd; 
+    
     
     
     
@@ -35,7 +34,7 @@ public:
     ~Servo();
     
     void iniciaServo(const int _servoIn);
-    void iniciaServoArduino(const int _servoIn);
+    void iniciaServoArduino(const int _servoIn, unsigned _fd);
     
     void setAngulo(const unsigned _angulo);
     void Alinhar();
