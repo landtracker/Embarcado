@@ -190,7 +190,7 @@ void ExecutorDeComandos::executaComando(Comando c)
     {
         printf("ExecutorDeComandos::executaComando: Comando para ativar streamming de video\n");
 
-        system("raspivid -vf -n -w 640 -h 480 -o - -t 0 -b 200000 | nc 192.168.43.50 2234 &");
+        system("raspivid -vf -n -w 640 -h 480 -o - -t 0 -b 200000 | nc 192.168.25.9 2234 &");
     }
     else if(c.getTipoDeComando() == 6) ///comando para desativar streamming de vídeo
     {
@@ -203,13 +203,15 @@ void ExecutorDeComandos::executaComando(Comando c)
         printf("ExecutorDeComandos::executaComando: Comando para ativar streamming de audio\n");
 
        // system("arecord -v -f S16_LE -c 1 -r 192000 -d 0 -Dplug:default | nc 192.168.43.50 7777  2>&1 &");
-    	system("arecord -f S16_LE -c 1 -r 192000 -d 0 -Dplug:default | nc 192.168.43.50 7777  2>&1 &");
+    	system("arecord -f S16_LE -c 1 -r 192000 -d 0 -Dplug:default | nc 192.168.25.9 7777  2>&1 &");
     }
     else if(c.getTipoDeComando() == 8) ///comando para desativar streamming de audio
     {
         printf("ExecutorDeComandos::executaComando: Comando para desativar streamming de audio\n");
 
-        system("killall activeAudioStream.sh &");
+        //system("killall activeAudioStream.sh &");
+        system("killall arecord &");
+        system("sudo fuser 7777/tcp -k &");
     }
     else if(c.getTipoDeComando() == 9) ///comando para mover a câmera para a esquerda
     {

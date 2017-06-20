@@ -108,9 +108,9 @@ void ServerTCP::acceptConections()
                     c.setTipoDeComando(resposta[i]);
                     c.setDescritorDoComando(resposta[i+1]);
 
-					if ((int)resposta[i] > 4) //Se o comando for maior que 4, corresponde a Audio/Video
-						ptrExecutorDeComandos_AV->insereComandoNaLista(c);
-					else
+				//	if ((int)resposta[i] > 4) //Se o comando for maior que 4, corresponde a Audio/Video
+				//		ptrExecutorDeComandos_AV->insereComandoNaLista(c);
+				//	else
 						ptrExecutorDeComandos_Mov->insereComandoNaLista(c);
                     i = i+2;
                 }
