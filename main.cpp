@@ -9,10 +9,14 @@
 ExecutorDeComandos executorDeComandos_Mov;
 ExecutorDeComandos executorDeComandos_AV;
 
+int contEncoder1 = 0;
+int contEncoder2 = 0;
+//extern int travelledDistance = 0;
+
 void sendInformationsToBaseStation()
 {
    
- ClientTCP client(2222, "192.168.25.9");
+/* ClientTCP client(2222, "192.168.25.9");
     int fd = wiringPiI2CSetup(I2CADDR_ARD);;
     while(true)
     {
@@ -20,12 +24,26 @@ void sendInformationsToBaseStation()
 		char velocity = (char)reading;
         sleep(1);
         client.sendMessageToServer("1234" , 5);///teste cliente enviando dados ao server
-    }
+    }*/
 }
 
 void InterruptArduino() {
 	executorDeComandos_Mov.InterruptArduino();
+}
 
+void InterruptEncoder1()
+{
+  contEncoder1++;
+  cout<<"Distance: "<<travelledDistance<<endl;
+  travelledDistance += PI/2;
+  delay(50);
+}
+
+void InterruptEncoder2()
+{
+  contEncoder2++;
+  //cout<<"E2: "<<contEncoder2<<endl;
+  delay(50);
 }
 
 int main()
@@ -34,17 +52,30 @@ int main()
     int which = PRIO_PROCESS;
     int priority = -20;///variável que indica a a prioridade a ser setada para esse processo
     int ret = setpriority(which, processPid, priority);///seto a nova prioridade desse processo para a máxima em sistema unix
+    
+    contEncoder1 = 0;
+    contEncoder2 = 0;
+    
     ///Se setpriority retorna 0, então a nova prioridade foi setada
-	if (wiringPiISR(INTERRUPT_A, INT_EDGE_RISING, &InterruptArduino) < 0)
+	/*if (wiringPiISR(INTERRUPT_A, INT_EDGE_RISING, &InterruptArduino) < 0)
+	{
+		fprintf(stderr, "Unable to setup ISR: %s\n", strerror(errno));
+	}*/
+
+	if (wiringPiISR(INTERRUPT_ENCODER1, INT_EDGE_RISING, &InterruptEncoder1) < 0)
+	{
+		fprintf(stderr, "Unable to setup ISR: %s\n", strerror(errno));
+	}
+	
+	if (wiringPiISR(INTERRUPT_ENCODER2, INT_EDGE_RISING, &InterruptEncoder2) < 0)
 	{
 		fprintf(stderr, "Unable to setup ISR: %s\n", strerror(errno));
 	}
 
 
 
-
     thread threadExecutorDeComandos_Mov = executorDeComandos_Mov.getExecutorDeComandosThread();
-	thread threadExecutorDeComandos_AV = executorDeComandos_AV.getExecutorDeComandosThread();
+    thread threadExecutorDeComandos_AV = executorDeComandos_AV.getExecutorDeComandosThread();
     ///inicia o server do raspberry para receber os comandos da estação base
     ServerTCP server(1234, &executorDeComandos_Mov, &executorDeComandos_AV);
     ///captura a thread do server
@@ -81,6 +112,6 @@ int main()
 
 
     threadExecutorDeComandos_Mov.join();///espero a thread do executor de comandos terminar
-	threadExecutorDeComandos_AV.join();
+    threadExecutorDeComandos_AV.join();
     serverThread.join();///fica esperando a thread do server finalizar para encerrar o software
 }

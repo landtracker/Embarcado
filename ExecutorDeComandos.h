@@ -27,6 +27,7 @@
     *Versao: 1.0
     */
 
+	extern float travelledDistance;
     class ExecutorDeComandos
     {
         private:

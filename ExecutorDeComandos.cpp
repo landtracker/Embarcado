@@ -1,17 +1,18 @@
 #include"ExecutorDeComandos.h"
 
-
-
+float travelledDistance = 0;
 void ExecutorDeComandos::InterruptArduino()
 {
 	executando = false;
 	motorDeTracao.Stop();
+	servoMotorDirecao.Alinhar();
 	digitalWrite(SIGPIN_ARD, HIGH);
 	printf("interrupt Arduino\n");
 }
 
 ExecutorDeComandos::ExecutorDeComandos()
 {
+	travelledDistance = 0;
     while (!listaDeComandos.empty()) ///para garantir começar com a lista vazia
     {
         listaDeComandos.pop();
@@ -61,28 +62,40 @@ void ExecutorDeComandos::executarComandos()
 		if (!listaDeComandos.empty())
 		{
 			Comando c;
-		//	Ultrassom US_Direita;
-		//	US_Direita.iniciaUltrassom(TRIGERPIN_01, ECHOPIN_01);
 			c = listaDeComandos.front();
 			listaDeComandos.pop(); ///retira o comando executado da lista
 			mutexQueue.unlock();
 			///manda executar o comando "c"...
 			executaComando(c);
-			executando = true;
+			
 			digitalWrite(SIGPIN_ARD, LOW);
 
+			if(c.getTipoDeComando() < 5 )
+			{
+					executando = true;
+					travelledDistance = 0;
+			}
+			
 			while (executando)
 			{
 
-				// cout<<US_Direita.calculaDistancia()<<endl;
-				if (brain.VerificaObstaculo())
+				if(travelledDistance >= c.getDescritorDoComando())
+				{
+					executando = false;
+					travelledDistance = 0;
+					motorDeTracao.Stop();
+					servoMotorDirecao.Alinhar();
+					cout<<"parou!"<<endl;
+				}
+			/*	if (brain.VerificaObstaculo())
 				{
 					motorDeTracao.Stop();
 					digitalWrite(SIGPIN_ARD, HIGH);
 					brain.DesvioObstaculo();
 					executando = false;
 
-				}
+				}*/
+				delay(10);
 			}
 
 		}
@@ -132,8 +145,8 @@ void ExecutorDeComandos::executaComando(Comando c)
             tempoAgora = time(NULL); ///pega os segundos desde 1970
         }
         std::cout<<tempoAgora<<endl;*/
-
-
+//	delay(10);
+//	motorDeTracao.Stop();
         ///reseta os pinos depois do delay para parar de mover o rover
         printf("Fim do comando de ir para frente...");
     }
@@ -144,7 +157,9 @@ void ExecutorDeComandos::executaComando(Comando c)
         printf(" descritor: %d\n\n", (int)c.getDescritorDoComando());
 
         motorDeTracao.Tras((int)c.getDescritorDoComando());
+       // delay((int)c.getDescritorDoComando()*1000);
         printf("Fim do comando de ir para tras...");
+       // motorDeTracao.Stop();
 
     }
     else if(c.getTipoDeComando() == 3) ///comando de ir para esquerda
@@ -155,7 +170,7 @@ void ExecutorDeComandos::executaComando(Comando c)
 
         servoMotorDirecao.Esquerda();
         motorDeTracao.Frente((int)c.getDescritorDoComando());
-        servoMotorDirecao.Alinhar();
+       // servoMotorDirecao.Alinhar();
         printf("Fim do comando de ir para esquerda...");
 
     }
@@ -167,7 +182,7 @@ void ExecutorDeComandos::executaComando(Comando c)
 
         servoMotorDirecao.Direita();
         motorDeTracao.Frente((int)c.getDescritorDoComando());
-        servoMotorDirecao.Alinhar();
+       // servoMotorDirecao.Alinhar();
         printf("Fim do comando de ir para direita...");
 
     }

@@ -36,8 +36,9 @@ void MotorDC::Frente(const unsigned _distancia)
     
     
     digitalWrite(velPin, HIGH);
-    digitalWrite(dirPin, HIGH);
-    
+    digitalWrite(dirPin, LOW);
+//    delay(_distancia*1000);
+
 }
 void MotorDC::Tras(const unsigned _distancia)
 {
@@ -46,7 +47,7 @@ void MotorDC::Tras(const unsigned _distancia)
     wiringPiI2CWriteReg8(fd, 2,_distancia);   
     
     digitalWrite(velPin, HIGH);
-    digitalWrite(dirPin, LOW);
+    digitalWrite(dirPin, HIGH);
     
 }
 

@@ -49,17 +49,19 @@ const unsigned SIGPIN_ARD = 6; // 22 fisico
 
 //Pino interrupcao
 
-const unsigned INTERRUPT_A = 26; // 32 fisico
+const unsigned INTERRUPT_SENDER = 28; // 38 fisico
 
+const unsigned INTERRUPT_RECEIVER = 29; // 40 fisico
 
+const unsigned INTERRUPT_ENCODER1 = 26; //32 físico
+
+const unsigned INTERRUPT_ENCODER2 = 25; //37 físico
 
 
 //Pinos motor
 
 const unsigned MOTOR_VEL = 0; //Pino de pwm do motor DC
 const unsigned MOTOR_DIR = 2; //Pino de direcao do motor DC
-
-
 
 
 
