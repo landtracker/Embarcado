@@ -40,7 +40,7 @@
 			Servo servoEsquerda;
 			bool executando;
 			AI brain;
-			
+			unsigned fd;			
         public:
             /**
             *Descição: Construtor da classe

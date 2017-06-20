@@ -12,6 +12,7 @@ void ExecutorDeComandos::InterruptArduino()
 
 ExecutorDeComandos::ExecutorDeComandos()
 {
+	fd = I2CADDR_ARD;
 	travelledDistance = 0;
     while (!listaDeComandos.empty()) ///para garantir começar com a lista vazia
     {
@@ -23,9 +24,9 @@ ExecutorDeComandos::ExecutorDeComandos()
 		digitalWrite(SIGPIN_ARD, HIGH);
         motorDeTracao.setup(MOTOR_VEL,MOTOR_DIR);
         servoMotorDirecao.iniciaServo(SERVO_01);
-		servoCamera.iniciaServoArduino(1);
-		servoDireita.iniciaServoArduino(2);
-		servoEsquerda.iniciaServoArduino(3);
+		servoCamera.iniciaServoArduino(1, fd);
+		servoDireita.iniciaServoArduino(2, fd);
+	//	servoEsquerda.iniciaServoArduino(3);
 		brain.setup(&servoCamera, &servoDireita, &servoEsquerda);
 
     }
@@ -68,7 +69,7 @@ void ExecutorDeComandos::executarComandos()
 			///manda executar o comando "c"...
 			executaComando(c);
 			
-			digitalWrite(SIGPIN_ARD, LOW);
+			//digitalWrite(SIGPIN_ARD, LOW);
 
 			if(c.getTipoDeComando() < 5 )
 			{
@@ -87,14 +88,15 @@ void ExecutorDeComandos::executarComandos()
 					servoMotorDirecao.Alinhar();
 					cout<<"parou!"<<endl;
 				}
-			/*	if (brain.VerificaObstaculo())
+				if (brain.VerificaObstaculo())
 				{
 					motorDeTracao.Stop();
-					digitalWrite(SIGPIN_ARD, HIGH);
+					servoMotorDirecao.Alinhar();
+					//digitalWrite(SIGPIN_ARD, HIGH);
 					brain.DesvioObstaculo();
 					executando = false;
 
-				}*/
+				}
 				delay(10);
 			}
 

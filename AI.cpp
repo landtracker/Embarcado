@@ -6,7 +6,7 @@
 AI::AI()
 {
     US_Direita.iniciaUltrassom(TRIGERPIN_01, ECHOPIN_01);
-    //US_Esquerda.iniciaUltrassom(TRIGERPIN_02, ECHOPIN_02);
+    US_Esquerda.iniciaUltrassom(TRIGERPIN_02, ECHOPIN_02);
     //US_Meio.iniciaUltrassom(TRIGERPIN_03, ECHOPIN_03);
     
 }
@@ -39,9 +39,10 @@ bool AI::VerificaObstaculo()
     else
         return false;
     */
-    if (US_Direita.calculaDistancia() < detect_dist)
+    if (US_Direita.calculaDistancia() < detect_dist || US_Esquerda.calculaDistancia() < detect_dist)
     {
-	cout<<endl<<US_Direita.calculaDistancia()<<endl;
+	cout<<"Ultrassom D: "<<US_Direita.calculaDistancia()<<endl;
+	cout<<"Ultrassom E: "<<US_Esquerda.calculaDistancia()<<endl;
 	 return true;
     }
     else
