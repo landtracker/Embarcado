@@ -9,10 +9,9 @@
 ExecutorDeComandos executorDeComandos_Mov;
 ExecutorDeComandos executorDeComandos_AV;
 
-int contEncoder1 = 0;
-int contEncoder2 = 0;
 //extern int travelledDistance = 0;
-
+int stateE;
+int stateD;
 void sendInformationsToBaseStation()
 {
    
@@ -27,23 +26,27 @@ void sendInformationsToBaseStation()
     }*/
 }
 
-void InterruptArduino() {
-	executorDeComandos_Mov.InterruptArduino();
-}
 
 void InterruptEncoder1()
 {
-  contEncoder1++;
-  cout<<"Distance: "<<travelledDistance<<endl;
-  travelledDistance += PI/2;
-  delay(50);
+   usleep(100);
+	if(digitalRead(INTERRUPT_ENCODER1) == stateE)
+		return;
+    TD_E+=(PI/2.0);
+    cout << "Distance E: "<< TD_E << endl;
+	stateE = digitalRead(INTERRUPT_ENCODER1);
+  usleep(100);
 }
 
 void InterruptEncoder2()
 {
-  contEncoder2++;
-  //cout<<"E2: "<<contEncoder2<<endl;
-  delay(50);
+	usleep(100);
+	if(digitalRead(INTERRUPT_ENCODER2) == stateD)
+		return;
+    TD_D+=(PI/2.0);
+    cout << "Distance D: "<< TD_D << endl;
+	stateD = digitalRead(INTERRUPT_ENCODER2);
+	usleep(100);
 }
 
 int main()
@@ -53,8 +56,6 @@ int main()
     int priority = -20;///variável que indica a a prioridade a ser setada para esse processo
     int ret = setpriority(which, processPid, priority);///seto a nova prioridade desse processo para a máxima em sistema unix
     
-    contEncoder1 = 0;
-    contEncoder2 = 0;
     
     ///Se setpriority retorna 0, então a nova prioridade foi setada
 	/*if (wiringPiISR(INTERRUPT_A, INT_EDGE_RISING, &InterruptArduino) < 0)
@@ -62,18 +63,20 @@ int main()
 		fprintf(stderr, "Unable to setup ISR: %s\n", strerror(errno));
 	}*/
 
-	if (wiringPiISR(INTERRUPT_ENCODER1, INT_EDGE_RISING, &InterruptEncoder1) < 0)
+	if (wiringPiISR(INTERRUPT_ENCODER1, INT_EDGE_FALLING, &InterruptEncoder1) < 0)
 	{
+		cout<<"impossivel iniciar pino de interrupcao\n";
 		fprintf(stderr, "Unable to setup ISR: %s\n", strerror(errno));
 	}
 	
-	if (wiringPiISR(INTERRUPT_ENCODER2, INT_EDGE_RISING, &InterruptEncoder2) < 0)
+	if (wiringPiISR(INTERRUPT_ENCODER2, INT_EDGE_FALLING, &InterruptEncoder2) < 0)
 	{
+		cout<<"impossivel iniciar pino de interrupcao\n";
 		fprintf(stderr, "Unable to setup ISR: %s\n", strerror(errno));
 	}
 
-
-
+	stateD = digitalRead(INTERRUPT_ENCODER2);
+	stateE = digitalRead(INTERRUPT_ENCODER1);
     thread threadExecutorDeComandos_Mov = executorDeComandos_Mov.getExecutorDeComandosThread();
     thread threadExecutorDeComandos_AV = executorDeComandos_AV.getExecutorDeComandosThread();
     ///inicia o server do raspberry para receber os comandos da estação base
