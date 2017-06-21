@@ -5,7 +5,7 @@
 #include <iostream>
 #include <wiringPi.h>
 
-const int detect_dist = 30;
+const int detect_dist = 20;
 
 
 using namespace std;

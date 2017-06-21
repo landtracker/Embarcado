@@ -12,7 +12,7 @@ void ExecutorDeComandos::InterruptArduino()
 
 ExecutorDeComandos::ExecutorDeComandos()
 {
-	fd = I2CADDR_ARD;
+	fd = wiringPiI2CSetup(I2CADDR_ARD);
 	travelledDistance = 0;
     while (!listaDeComandos.empty()) ///para garantir começar com a lista vazia
     {
@@ -24,9 +24,9 @@ ExecutorDeComandos::ExecutorDeComandos()
 		digitalWrite(SIGPIN_ARD, HIGH);
         motorDeTracao.setup(MOTOR_VEL,MOTOR_DIR);
         servoMotorDirecao.iniciaServo(SERVO_01);
-		servoCamera.iniciaServoArduino(1, fd);
-		servoDireita.iniciaServoArduino(2, fd);
-	//	servoEsquerda.iniciaServoArduino(3);
+		servoDireita.iniciaServoArduino(1, fd);
+        servoEsquerda.iniciaServoArduino(2, fd);
+        servoCamera.iniciaServoArduino(3, fd);
 		brain.setup(&servoCamera, &servoDireita, &servoEsquerda);
 
     }
@@ -97,7 +97,7 @@ void ExecutorDeComandos::executarComandos()
 					executando = false;
 
 				}
-				delay(10);
+				delay(100);
 			}
 
 		}
