@@ -29,12 +29,13 @@ void AI::setup(Servo *servoC, Servo *servoD, Servo *servoE)
 bool AI::VerificaObstaculo()
 {
     int distEsq, distDir, distMeio;
-    
+   	cout<<"estou aqui!"<<endl;
+ 
     distDir = US_Direita.calculaDistanciaCorrigida();
     distEsq = US_Esquerda.calculaDistanciaCorrigida();
     distMeio = US_Meio.calculaDistanciaCorrigida();
     cout << "Distancia Direita: "<< distDir <<endl;
-    cout << "Distancia Esquerda: "<< distEsq <<endl;
+    cout << "Distancia Esquerda: "<< distEsq <<endl; 
     cout << "Distancia Meio: "<< distMeio <<endl;
     if (distDir < detect_dist || distEsq < detect_dist || distMeio < detect_dist)
     {
@@ -112,7 +113,7 @@ vector<Comando> AI::DesvioObstaculo()
 
     if(BrechaD>BrechaE)
     {
-        Commando c1, c2, c3, c4;
+        Comando c1, c2, c3, c4;
         c1.setTipoDeComando(3);
         c1.setDescritorDoComando(50);
 
@@ -133,7 +134,7 @@ vector<Comando> AI::DesvioObstaculo()
     }
     else
     {
-        Commando c1, c2, c3, c4;
+        Comando c1, c2, c3, c4;
         c1.setTipoDeComando(4);
         c1.setDescritorDoComando(50);
 

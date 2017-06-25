@@ -25,11 +25,11 @@ void sendInformationsToBaseStation()
     while(true)
     {   
         ClientTCP client(2222, "192.168.25.9");
-        
+        float eixoX, eixoY; 
         while(true)
         {
             sleep(1);//espera um segundo para fazer a leitura
-            giroscopio.readEixos()
+            giroscopio.readEixos();
             char toSend[4];
             if( min(TD_E, TD_D) == 0 )
             {
@@ -43,10 +43,24 @@ void sendInformationsToBaseStation()
             {
                 toSend[0] = 0;
             }
-            toSend[1] = (char)giroscopio.getTemp();
-            toSend[2] = (char)giroscopio.get_x_rotation();
-            toSend[3] = (char)giroscopio.get_y_rotation();;
-            if(!client.getConnected())
+		eixoX = giroscopio.get_x_rotation(); 
+		eixoY = giroscopio.get_y_rotation();
+		toSend[1] = (char)giroscopio.getTemp();
+            	toSend[2] = (char)eixoX;
+            	toSend[3] = (char)eixoY;
+
+		/*if(eixoX < 0)
+		{
+			toSend[2] = -1*toSend[2];
+		}
+		
+		if(eixoY <0)
+		{
+			toSend[3] = -1*toSend[3];
+		}*/
+            
+	//	cout<<giroscopio.get_x_rotation()<<endl<<giroscopio.get_y_rotation()<<endl;
+	    if(!client.getConnected())
             {
                 break;
             }
@@ -58,11 +72,11 @@ void sendInformationsToBaseStation()
 
 void InterruptEncoder1()
 {
-    usleep(100);
+    usleep(10);
     if(digitalRead(INTERRUPT_ENCODER1) == stateE)
         return;
 
-    if(timerStateE == false)
+/*    if(timerStateE == false)
     {
         nowE = micros();
         timerStateE = true;
@@ -71,21 +85,21 @@ void InterruptEncoder1()
     {
         timeToTravelE = micros() - nowE;
         timerStateE = false;
-    }
+    }*/
 
     TD_E+=(PI/2.0);
     cout << "Distance E: "<< TD_E << endl;
     stateE = digitalRead(INTERRUPT_ENCODER1);
-    usleep(100);
+    usleep(10);
 }
 
 void InterruptEncoder2()
 {
-	usleep(100);
+	usleep(10);
 	if(digitalRead(INTERRUPT_ENCODER2) == stateD)
 		return;
         
-    if(timerStateD == false)
+   /* if(timerStateD == false)
     {
         nowD = micros();
         timerStateD = true;
@@ -94,12 +108,12 @@ void InterruptEncoder2()
     {
         timeToTravelD = micros() - nowD;
         timerStateD = false;
-    }
+    }*/
 
     TD_D+=(PI/2.0);
     cout << "Distance D: "<< TD_D << endl;
 	stateD = digitalRead(INTERRUPT_ENCODER2);
-	usleep(100);
+	usleep(10);
 }
 
 int main()

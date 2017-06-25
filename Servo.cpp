@@ -104,9 +104,9 @@ unsigned Servo::getAngulo()
 
 void Servo::Direita()
 {
-    setAngulo(160);
+    setAngulo(135);
 }
 void Servo::Esquerda()
 {
-    setAngulo(20);
+    setAngulo(45);
 }

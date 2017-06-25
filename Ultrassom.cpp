@@ -74,7 +74,8 @@ int Ultrassom::calculaDistanciaCorrigida()
     
     while (i<3){
         err1 = calculaDistancia();
-        if (err1> 10){
+//	cout<<"err1:calculaDistancia = "<<err1<<endl;
+        if (err1> 5){
             if (abs(err1-err2) < 10 && i>0)
             {
                 leituras += err1;
@@ -88,6 +89,7 @@ int Ultrassom::calculaDistanciaCorrigida()
                 i++;
             }
         }
+//	cout<<"sai do while"<<endl;
         delay(50);
     }
     

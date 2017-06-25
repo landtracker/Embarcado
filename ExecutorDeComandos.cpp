@@ -20,7 +20,7 @@ ExecutorDeComandos::ExecutorDeComandos()
         servoMotorDirecao.iniciaServo(SERVO_01);
 		servoDireita.iniciaServoArduino(1, fd);
         servoEsquerda.iniciaServoArduino(2, fd);
-        //servoCamera.iniciaServoArduino(3, fd);
+        servoCamera.iniciaServoArduino(3, fd);
 		brain.setup(NULL, &servoDireita, &servoEsquerda);
 
     }
@@ -65,7 +65,7 @@ void ExecutorDeComandos::executarComandos()
 			
 			//digitalWrite(SIGPIN_ARD, LOW);
 
-			if(c.getTipoDeComando() < 5 )
+			if(c.getTipoDeComando() < 5)
 			{
 					executando = true;
 					travelledDistance = 0;
@@ -75,8 +75,8 @@ void ExecutorDeComandos::executarComandos()
 			
 			while (executando)
 			{
-                travelledDistance = min(TD_E, TD_D);
-                    cout << travelledDistance << " dist" << endl;
+                travelledDistance =( TD_E+ TD_D)/2.0;
+                    cout << travelledDistance << " travelled distance" << endl;
 				if(travelledDistance > c.getDescritorDoComando())
 				{
 					executando = false;
@@ -88,7 +88,7 @@ void ExecutorDeComandos::executarComandos()
 					cout<<"parou!"<<endl;
 				}
 
-				if (brain.VerificaObstaculo())
+		/*		if (brain.VerificaObstaculo())
 				{
                     vector<Comando> desvio;
 					motorDeTracao.Stop();
@@ -97,13 +97,17 @@ void ExecutorDeComandos::executarComandos()
                     mutexQueue.lock();
                     queue<Comando> aux;
                     aux = listaDeComandos;
-                    listaDeComandos.clear();
+                   // listaDeComandos.clear();
                     
-                    for (int vai = 0 ; vai < desvio.size() ; vai++)
+			while (!listaDeComandos.empty())
+   			 {
+       				 listaDeComandos.pop();
+    			}
+                    for (unsigned int vai = 0 ; vai < desvio.size() ; vai++)
                     {
                         listaDeComandos.push(desvio[vai]);
                     }
-                    while(aux.size > 0)
+                    while(aux.size() > 0)
                     {
                         Comando substitui  = aux.front();
                         aux.pop();
@@ -115,7 +119,7 @@ void ExecutorDeComandos::executarComandos()
 					executando = false;
                     cout << "Saiu" << endl;
 
-				}
+				}*/
 				delay(50);
 			}
 
