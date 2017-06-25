@@ -4,7 +4,8 @@
 #include "ExecutorDeComandos.h"
 #include <sys/resource.h>
 #include<string>
-
+#include "Giroscopio.h"
+#include <sys/time.h>
 
 ExecutorDeComandos executorDeComandos_Mov;
 ExecutorDeComandos executorDeComandos_AV;
@@ -12,41 +13,70 @@ ExecutorDeComandos executorDeComandos_AV;
 //extern int travelledDistance = 0;
 int stateE;
 int stateD;
+bool timerStateE = false;
+bool timerStateD = false;
+float timeToTravelE = 0;
+float timeToTravelD = 0;
+float nowE = 0;
+float nowD = 0;
 void sendInformationsToBaseStation()
 {
+    Giroscopio giroscopio;
     while(true)
-{   
-    ClientTCP client(2222, "192.168.25.9");
-    int fd = wiringPiI2CSetup(I2CADDR_ARD);;
-    while(true)
-    {
-        int reading = wiringPiI2CRead(fd);
-	char velocity = (char)reading;
-        sleep(1);
-	char test[4];
-	test[0] = 1;
-	test[1] = 2;
-	test[2] = 3;
-	test[3] = 4;
-	if(!client.getConnected())
-	{
-		break;
-	}
-        client.sendMessageToServer(test , 4);///teste cliente enviando dados ao server
+    {   
+        ClientTCP client(2222, "192.168.25.9");
+        
+        while(true)
+        {
+            sleep(1);//espera um segundo para fazer a leitura
+            giroscopio.readEixos()
+            char toSend[4];
+            if( min(TD_E, TD_D) == 0 )
+            {
+                toSend[0] = 0;
+            }
+            else if((timeToTravelE+ timeToTravelD) >0)
+            {
+                toSend[0] = (char)((PI)/(timeToTravelE+ timeToTravelD));
+            }
+            else
+            {
+                toSend[0] = 0;
+            }
+            toSend[1] = (char)giroscopio.getTemp();
+            toSend[2] = (char)giroscopio.get_x_rotation();
+            toSend[3] = (char)giroscopio.get_y_rotation();;
+            if(!client.getConnected())
+            {
+                break;
+            }
+            client.sendMessageToServer(toSend , 4);///teste cliente enviando dados ao server
+        }
     }
-}
 }
 
 
 void InterruptEncoder1()
 {
-   usleep(100);
-	if(digitalRead(INTERRUPT_ENCODER1) == stateE)
-		return;
+    usleep(100);
+    if(digitalRead(INTERRUPT_ENCODER1) == stateE)
+        return;
+
+    if(timerStateE == false)
+    {
+        nowE = micros();
+        timerStateE = true;
+    }
+    else
+    {
+        timeToTravelE = micros() - nowE;
+        timerStateE = false;
+    }
+
     TD_E+=(PI/2.0);
     cout << "Distance E: "<< TD_E << endl;
-	stateE = digitalRead(INTERRUPT_ENCODER1);
-  usleep(100);
+    stateE = digitalRead(INTERRUPT_ENCODER1);
+    usleep(100);
 }
 
 void InterruptEncoder2()
@@ -54,6 +84,18 @@ void InterruptEncoder2()
 	usleep(100);
 	if(digitalRead(INTERRUPT_ENCODER2) == stateD)
 		return;
+        
+    if(timerStateD == false)
+    {
+        nowD = micros();
+        timerStateD = true;
+    }
+    else
+    {
+        timeToTravelD = micros() - nowD;
+        timerStateD = false;
+    }
+
     TD_D+=(PI/2.0);
     cout << "Distance D: "<< TD_D << endl;
 	stateD = digitalRead(INTERRUPT_ENCODER2);
