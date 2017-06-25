@@ -4,6 +4,8 @@
 #include "Servo.h"
 #include <iostream>
 #include <wiringPi.h>
+#include <vector>
+#include "Comando.h"
 
 const int detect_dist = 20;
 
@@ -29,7 +31,7 @@ public:
     void setup(Servo *servoC, Servo *servoD, Servo *servoE);
     bool VerificaObstaculo();
     
-    int DesvioObstaculo();
+    vector<Comando> DesvioObstaculo();
     
     
 };

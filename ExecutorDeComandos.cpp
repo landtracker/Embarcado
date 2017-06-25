@@ -90,9 +90,28 @@ void ExecutorDeComandos::executarComandos()
 
 				if (brain.VerificaObstaculo())
 				{
+                    vector<Comando> desvio;
 					motorDeTracao.Stop();
 					servoMotorDirecao.Alinhar();
-					//brain.DesvioObstaculo();
+					desvio = brain.DesvioObstaculo();
+                    mutexQueue.lock();
+                    queue<Comando> aux;
+                    aux = listaDeComandos;
+                    listaDeComandos.clear();
+                    
+                    for (int vai = 0 ; vai < desvio.size() ; vai++)
+                    {
+                        listaDeComandos.push(desvio[vai]);
+                    }
+                    while(aux.size > 0)
+                    {
+                        Comando substitui  = aux.front();
+                        aux.pop();
+                        listaDeComandos.push(substitui);   
+                    }
+
+                    mutexQueue.unlock(); 
+
 					executando = false;
                     cout << "Saiu" << endl;
 

@@ -7,7 +7,7 @@ AI::AI()
 {
     US_Direita.iniciaUltrassom(TRIGERPIN_01, ECHOPIN_01);
     US_Esquerda.iniciaUltrassom(TRIGERPIN_02, ECHOPIN_02);
-    //US_Meio.iniciaUltrassom(TRIGERPIN_03, ECHOPIN_03);
+    US_Meio.iniciaUltrassom(TRIGERPIN_03, ECHOPIN_03);
     
 }
 
@@ -28,26 +28,28 @@ void AI::setup(Servo *servoC, Servo *servoD, Servo *servoE)
 
 bool AI::VerificaObstaculo()
 {
-    int distEsq, distDir;
+    int distEsq, distDir, distMeio;
     
     distDir = US_Direita.calculaDistanciaCorrigida();
-    
-            cout << "Distancia Direita: "<< distDir <<endl;
-            if (distDir < detect_dist)
-            {
-                cout << "HEY, PARA" << endl;
-                return true;
-            }
-            
-            else
-                return false;
-        
-    
+    distEsq = US_Esquerda.calculaDistanciaCorrigida();
+    distMeio = US_Meio.calculaDistanciaCorrigida();
+    cout << "Distancia Direita: "<< distDir <<endl;
+    cout << "Distancia Esquerda: "<< distEsq <<endl;
+    cout << "Distancia Meio: "<< distMeio <<endl;
+    if (distDir < detect_dist || distEsq < detect_dist || distMeio < detect_dist)
+    {
+        cout << "HEY, PARA" << endl;
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
 
-int AI::DesvioObstaculo()
+vector<Comando> AI::DesvioObstaculo()
 {
-    
+    vector<Comando> returnVector;
     
     int distD, distE, barreiraStart_D, barreiraEnd_D, barreiraStart_E, barreiraEnd_E;
     distD = distE = barreiraStart_D = barreiraEnd_D = barreiraStart_E = barreiraEnd_E = 0;
@@ -107,6 +109,50 @@ int AI::DesvioObstaculo()
     servoDireita->Alinhar();
     servoEsquerda->Alinhar();
     cout << "Brecha Esquerda: " << BrechaD << " Brecha Direita: " << BrechaE << endl;
+
+    if(BrechaD>BrechaE)
+    {
+        Commando c1, c2, c3, c4;
+        c1.setTipoDeComando(3);
+        c1.setDescritorDoComando(50);
+
+        c2.setTipoDeComando(1);
+        c2.setDescritorDoComando(20);
+
+        c3.setTipoDeComando(4);
+        c3.setDescritorDoComando(50);
+
+        c4.setTipoDeComando(1);
+        c4.setDescritorDoComando(20);
+
+        returnVector.push_back(c1);
+        returnVector.push_back(c2);
+        returnVector.push_back(c3);
+        returnVector.push_back(c4);
+
+    }
+    else
+    {
+        Commando c1, c2, c3, c4;
+        c1.setTipoDeComando(4);
+        c1.setDescritorDoComando(50);
+
+        c2.setTipoDeComando(1);
+        c2.setDescritorDoComando(20);
+
+        c3.setTipoDeComando(3);
+        c3.setDescritorDoComando(50);
+
+        c4.setTipoDeComando(1);
+        c4.setDescritorDoComando(20);
+
+        returnVector.push_back(c1);
+        returnVector.push_back(c2);
+        returnVector.push_back(c3);
+        returnVector.push_back(c4);
+    }
+
+    return returnVector;
 }
 
 
