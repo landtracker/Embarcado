@@ -7,7 +7,7 @@
 
 using namespace std;
 
-const unsigned timeout = 30000;
+const unsigned timeout = 300000;
 
 
 class Ultrassom{
@@ -42,7 +42,7 @@ public:
     
     void iniciaUltrassom(const int _triggerIn, const int _echoIn);
     int calculaDistancia();//--retorna o valor medido pela classe
-
+    int calculaDistanciaCorrigida(); //retorna o valor de verdade verdadeira
     
     
 };

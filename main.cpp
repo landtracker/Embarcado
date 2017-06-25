@@ -14,16 +14,27 @@ int stateE;
 int stateD;
 void sendInformationsToBaseStation()
 {
-   
-/* ClientTCP client(2222, "192.168.25.9");
+    while(true)
+{   
+    ClientTCP client(2222, "192.168.25.9");
     int fd = wiringPiI2CSetup(I2CADDR_ARD);;
     while(true)
     {
         int reading = wiringPiI2CRead(fd);
-		char velocity = (char)reading;
+	char velocity = (char)reading;
         sleep(1);
-        client.sendMessageToServer("1234" , 5);///teste cliente enviando dados ao server
-    }*/
+	char test[4];
+	test[0] = 1;
+	test[1] = 2;
+	test[2] = 3;
+	test[3] = 4;
+	if(!client.getConnected())
+	{
+		break;
+	}
+        client.sendMessageToServer(test , 4);///teste cliente enviando dados ao server
+    }
+}
 }
 
 
@@ -88,9 +99,9 @@ int main()
     ///inicia um cliente TCP que enviará os dados de vídeo e áudio para a estação base
     //ClientTCP client(1234, "127.0.0.1");
     
-    //thread enviaInformacoesEstacaoBase (sendInformationsToBaseStation());
+    thread enviaInformacoesEstacaoBase (sendInformationsToBaseStation);
 
-
+    sleep(1);
 
 
     ///teste
@@ -117,4 +128,5 @@ int main()
     threadExecutorDeComandos_Mov.join();///espero a thread do executor de comandos terminar
     threadExecutorDeComandos_AV.join();
     serverThread.join();///fica esperando a thread do server finalizar para encerrar o software
+  //  enviaInformacoesEstacaoBase.join();
 }

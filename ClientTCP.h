@@ -25,7 +25,7 @@
             struct sockaddr_in servAddr;///referência para um objeto que representa o server
             struct hostent *ptrServer;/// ponteiro para um objeto que captura resolve o nome do server
             string ipServer; ///ip do servidor ao qual quero me conectar
-
+	    bool connected;
         public:
             /**
             *Descrição: constutor da classe ClientTCP
@@ -58,6 +58,7 @@
             *return: true se conseguiu enviar a mensagem
             */
             bool sendMessageToServer(char *ptrMesage, int messageSize);
+	    bool getConnected();
     };
 
 #endif // SERVERTCP_H

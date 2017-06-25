@@ -2,12 +2,13 @@
 
 ClientTCP::ClientTCP()
 {
-
+	connected = false;
 }
 ///------------------------------------------------------------------------------------------------------
 
 ClientTCP::ClientTCP(int port, string ip)
 {
+    connected = false;
     serverPortNumber = port;
     ipServer = ip;
 
@@ -43,11 +44,12 @@ ClientTCP::ClientTCP(int port, string ip)
     ///tenta efetivar a conexão com o server
     while (connect(sockfd,(struct sockaddr *) &servAddr,sizeof(servAddr)) < 0)
     {
-        //printf("Erro ao conectar com o servidor");
+       // printf("Erro ao conectar com o servidor");
     }
     //else
     {
         printf("Conexão estabelecida com o servidor");
+	connected = true;
     }
 
 }
@@ -55,7 +57,7 @@ ClientTCP::ClientTCP(int port, string ip)
 
 ClientTCP::~ClientTCP()
 {
-
+	connected = false;
 }
 ///------------------------------------------------------------------------------------------------------
 
@@ -67,13 +69,44 @@ void ClientTCP::setServerPortNumber(int portN)
 
 bool ClientTCP::sendMessageToServer(char *ptrMesage, int messageSize)
 {
+//    int err = 0;
+  //  socklen_t size = sizeof (err);
+   // int check = getsockopt (sockfd, SOL_SOCKET, SO_ERROR, &err, &size);
+   
+    //if(check == 0)
+    //{
+	//return 
+//	connected = false;
+//	return true;
+ //   }
+
+
+
+
+//    char buf;
+//    int err = recv(sockfd, &buf, 1, MSG_PEEK);
+//    if(err == 0)
+  //  {
+       //  if(WSAGetLastError() != WSAEWOULDBLOCK)
+        // {
+//	      return connected = false;
+	 //}
+  //  }
+    // return true;
+
+
     int n = write(sockfd,ptrMesage,messageSize);
     if (n < 0)
     {
          printf("ClientTCP::sendMessageToServer = Erro ao escrever no socket");
-         return false;
+         
+         return connected = false;
     }
     usleep(10000);///preciso dar um tempo para não saturar o server
     return true;
 }
 ///------------------------------------------------------------------------------------------------------
+bool ClientTCP::getConnected()
+{
+	return connected;
+}

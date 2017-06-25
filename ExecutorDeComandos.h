@@ -20,6 +20,7 @@
     #include "MotorDC.h"
 	#include "AI.h"
     #include"Constantes_&_Pinos.h"
+    #include <algorithm> 
     using namespace std;
 
     /**
@@ -27,7 +28,9 @@
     *Versao: 1.0
     */
 
-	extern float travelledDistance;
+	extern float TD_E;
+    extern float TD_D;
+    
     class ExecutorDeComandos
     {
         private:
@@ -40,7 +43,8 @@
 			Servo servoEsquerda;
 			bool executando;
 			AI brain;
-			unsigned fd;			
+			unsigned fd;
+            float travelledDistance;
         public:
             /**
             *Descição: Construtor da classe
@@ -51,8 +55,6 @@
             *Descição: Destrutor da classe
             */
             ~ExecutorDeComandos();
-
-			void InterruptArduino();
 
 
             /**

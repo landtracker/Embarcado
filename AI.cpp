@@ -29,40 +29,20 @@ void AI::setup(Servo *servoC, Servo *servoD, Servo *servoE)
 bool AI::VerificaObstaculo()
 {
     int distEsq, distDir;
-    distEsq = distDir = 0;
-    /*printf("AI1!\n");
-    cout<<US_Esquerda.calculaDistancia()<<endl<<US_Direita.calculaDistancia()<<endl<<US_Meio.calculaDistancia()<<endl;
-    if (US_Esquerda.calculaDistancia() < detect_dist || US_Direita.calculaDistancia() < detect_dist || US_Meio.calculaDistancia() < detect_dist)
-    {
-	printf("AI!\n");
-	cout<<US_Esquerda.calculaDistancia()<<endl<<US_Direita.calculaDistancia()<<endl<<US_Meio.calculaDistancia()<<endl;
-	 return true;
-    }
-    else
-        return false;
-    */
     
-    for (int i = 0; i<5; i++){
+    distDir = US_Direita.calculaDistanciaCorrigida();
     
-        distEsq += US_Esquerda.calculaDistancia();
-        distDir += US_Direita.calculaDistancia();
-        
-    }
-    distEsq = distEsq / 3;
-    distDir = distDir / 3;
-    
-    cout << "Distancia Direita: "<< distDir << " Distancia Esquerda: " << distEsq << endl;
+            cout << "Distancia Direita: "<< distDir <<endl;
+            if (distDir < detect_dist)
+            {
+                cout << "HEY, PARA" << endl;
+                return true;
+            }
+            
+            else
+                return false;
         
     
-    if (distEsq < detect_dist || distDir < detect_dist)
-    {
-//	cout<<"Ultrassom D: "<<US_Direita.calculaDistancia()<<endl;
-//	cout<<"Ultrassom E: "<<US_Esquerda.calculaDistancia()<<endl;
-	//servoDireita->setAngulo(0);
-	 return true;
-    }
-    else
-        return false;
 }
 
 int AI::DesvioObstaculo()
@@ -77,9 +57,9 @@ int AI::DesvioObstaculo()
     for (int i = 90; i <= 170; i+=10) 
     {
         cout << "Aki"<< endl;
-        servoDireita->setAngulo(i);
+        servoDireita->setAngulo(170 - i);
         delay(500);
-        servoEsquerda->setAngulo(170 - i);
+        servoEsquerda->setAngulo(i);
         delay(500);
         distD = US_Direita.calculaDistancia();
         distE = US_Esquerda.calculaDistancia();

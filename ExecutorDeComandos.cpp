@@ -1,33 +1,27 @@
 #include"ExecutorDeComandos.h"
 
-float travelledDistance = 0;
-void ExecutorDeComandos::InterruptArduino()
-{
-	executando = false;
-	motorDeTracao.Stop();
-	servoMotorDirecao.Alinhar();
-	digitalWrite(SIGPIN_ARD, HIGH);
-	printf("interrupt Arduino\n");
-}
+float TD_E = 0;
+float TD_D = 0;
 
 ExecutorDeComandos::ExecutorDeComandos()
 {
 	fd = wiringPiI2CSetup(I2CADDR_ARD);
 	travelledDistance = 0;
+    TD_E = 0;
+    TD_D = 0;
     while (!listaDeComandos.empty()) ///para garantir começar com a lista vazia
     {
         listaDeComandos.pop();
     }
     if(wiringPiSetup()>=0)
     {
-		pinMode(SIGPIN_ARD, OUTPUT);
-		digitalWrite(SIGPIN_ARD, HIGH);
+    
         motorDeTracao.setup(MOTOR_VEL,MOTOR_DIR);
         servoMotorDirecao.iniciaServo(SERVO_01);
 		servoDireita.iniciaServoArduino(1, fd);
         servoEsquerda.iniciaServoArduino(2, fd);
-        servoCamera.iniciaServoArduino(3, fd);
-		brain.setup(&servoCamera, &servoDireita, &servoEsquerda);
+        //servoCamera.iniciaServoArduino(3, fd);
+		brain.setup(NULL, &servoDireita, &servoEsquerda);
 
     }
 	executando = false;
@@ -75,29 +69,35 @@ void ExecutorDeComandos::executarComandos()
 			{
 					executando = true;
 					travelledDistance = 0;
+					TD_E = 0;
+					TD_D = 0;
 			}
 			
 			while (executando)
 			{
-
-				if(travelledDistance >= c.getDescritorDoComando())
+                travelledDistance = min(TD_E, TD_D);
+                    cout << travelledDistance << " dist" << endl;
+				if(travelledDistance > c.getDescritorDoComando())
 				{
 					executando = false;
 					travelledDistance = 0;
+			                TD_E = 0;
+                   			TD_D = 0;
 					motorDeTracao.Stop();
 					servoMotorDirecao.Alinhar();
 					cout<<"parou!"<<endl;
 				}
+
 				if (brain.VerificaObstaculo())
 				{
 					motorDeTracao.Stop();
 					servoMotorDirecao.Alinhar();
-					//digitalWrite(SIGPIN_ARD, HIGH);
-					brain.DesvioObstaculo();
+					//brain.DesvioObstaculo();
 					executando = false;
+                    cout << "Saiu" << endl;
 
 				}
-				delay(100);
+				delay(50);
 			}
 
 		}
@@ -192,7 +192,7 @@ void ExecutorDeComandos::executaComando(Comando c)
     {
         printf("ExecutorDeComandos::executaComando: Comando para ativar streamming de video\n");
 
-        system("raspivid -vf -n -w 640 -h 480 -o - -t 0 -b 200000 | nc 192.168.25.9 2234 &");
+        system("raspivid -vf -n -w 640 -h 480 -o - -t 0 -b 200000 | nc 192.168.25.9 2234 2>&1 &");
     }
     else if(c.getTipoDeComando() == 6) ///comando para desativar streamming de vídeo
     {
